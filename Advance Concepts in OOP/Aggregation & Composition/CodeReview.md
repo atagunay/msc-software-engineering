@@ -134,12 +134,12 @@ class Dog extends Pet { // DERIVED CLASS
         bone = new Bone();
     }
 
-    // As a best practice, we can add the @override tag to the top of this method to emphasize overriding. 
+    // As a best practice, we can add the @Override tag to the top of this method to emphasize overriding. 
     // It can be like that:
     // void makeSound(){
     //     System.out.println("Woof")   
     // }
-    @override
+    @Override
     String makeSound() {
         return "Woof";
     }
@@ -186,7 +186,7 @@ class Cat extends Pet { // DERIVED CLASS
     // void makeSound(){
     //     System.out.println("Woof")   
     // } 
-    @override
+    @Override
     String makeSound() {
         return "Meow";
     }
@@ -259,10 +259,14 @@ class Main {
 
         // Create a cat object with name: Whiskers, gender: Female
         // cat is the reference variable and points the created object
+        // You can use a Pet reference variable (Polymorphism):
+        // #=> Pet pet = new Cat("Whiskers", "Female"); 
         Cat cat = new Cat("Whiskers", "Female");
 
         // Create a dog object with name: Buddy, gender: Male
         // dog is the reference variable and points the created object
+        // You can use a Pet reference variable (Polymorphism):
+        // #=> Pet pet = new Dog("Buddy", "Male"); 
         Dog dog = new Dog("Buddy", "Male");
 
         // Create person objects
