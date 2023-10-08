@@ -4,8 +4,8 @@ This GitHub repository contains my assignments and lecture notes related to the 
 
 ## Directory Structure
 
-- [Advance Concepts in OOP](/): Assignments and notes for Advance Concepts in OOP.
-- [Compiler Design Lecture](Compiler Design Lecture/): Assignments and notes for Compiler Design Lecture.
+- [Advance Concepts in OOP](Advance%20Concepts%20in%20OOP/): Assignments and notes for Advance Concepts in OOP.
+- [Compiler Design Lecture](Compiler%20Design%20Lecture/): Assignments and notes for Compiler Design Lecture.
 
 ## How to Use
 
