@@ -59,7 +59,7 @@ class Car extends Auto{
   // Constructor of the Car
   public Car(String brand, String model){
     super(brand, model);
-    engine = new Engine();
+    engine = null;
   }
 
   // An example of overloading
