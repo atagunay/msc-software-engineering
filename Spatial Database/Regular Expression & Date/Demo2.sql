@@ -580,7 +580,7 @@ INSERT INTO cs621week2_parking VALUES (1723, 'Roof', '2018-01-04 18:53:59', '201
 ALTER TABLE ONLY cs621week2_parking
     ADD CONSTRAINT cs621week2_parking_pkey PRIMARY KEY (entryid);
 
--- EXAMPLES
+-- EXAMPLE 1
 
 -- Q1: Use date_part() to return all cars who entered the car park on the 6th of January 2018
 SELECT * from CS621Week2_Parking where (date_part('day',entry) = 6);
@@ -617,3 +617,43 @@ select * from cs621week2_parking where  (date_part('hour',entry) + date_part('mi
  
 -- Q12: Write a query to return all registrations where the reg has structure 3 digits, 3 upper case, 3 digits (remember the hyphens)
  select * from cs621week2_parking where (registration ~ '^\d{3}-[A-Z]{3}-\d{3}$');
+
+-- EXAMPLE 2
+
+-- QUESTION 1: Write an SQL query which returns all rows from the week2surveys table 
+-- where the survey was submitted ANYTIME in March 2023 only. 
+-- You should order your results in chronological order. 
+-- Please note the number of rows returned by this query. [81 rows returned]
+select * from week2surveys where (surveyts >= '2023-03-01 00:00:00') 
+and (surveyts <= '2023-03-31 23:59:59');
+
+-- QUESTION 2: Write an SQL query which returns all rows from the week2surveys table 
+-- where the building is not a hospital, the energy value is ODD, 
+-- and the energy value is greater than 90. 
+-- You should only display the building, energy, and ber columns in your results. 
+-- The number of rows returned is 25.
+select building, energy, ber from week2surveys where (building != 'hospital') 
+and (energy % 2 = 1) and (energy > 90);
+
+-- QUESTION 3: This question requires a regular expression. 
+-- Write an SQL query which returns all rows from the week2 surveys table
+-- where the surveyCode contains an UPPERCASE VOWEL in the 2nd position of the 1st block 
+-- AND the very last character in the surveyCode is also an UPPERCASE VOWEL. 
+-- The other characters in the string are irrelevant. [11 rows returned]
+select * from week2surveys where (surveycode ~ '^\w(A|E|I|U|O){1}.*-.*-.*(A|E|I|U|O){1}$');
+
+
+-- QUESTION 4: The middle block of the surveyCode column or field is made up of digits only. 
+-- Write an SQL query which returns all rows in the week2 surveys table 
+-- where the surveyCode contains ONLY PRIME DIGITS in the middle block. 
+-- A prime digit is 2,3,5, or 7. 
+-- So this surveyCode contains all PRIME DIGITS in the middle block AQGY-537-n1j. 
+-- You should note that the individual digits 5,3, and 7 are prime numbers 
+-- but the number 537 (five hundred and thirty seven) IS NOT PRIME.
+select * from week2surveys where (surveycode ~ '^.*-(2|3|5|7){3,}-.*$');
+
+-- QUESTION 5: Consider a CASE INSENSITIVE approach to this question please. 
+-- Write an SQL query to return all rows in the week2 surveys table
+-- where the surveyCode contains TWO OR MORE Consecutive letter o (as in orange) characters. 
+-- The characters can appear ANYWHERE in the surveyCode String - but they must be consecutive (beside each other). 
+-- Solutions include ETOO-138-6QA and PKWD-159-roo. [6 rows returned]

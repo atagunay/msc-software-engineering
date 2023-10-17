@@ -480,5 +480,5 @@ class Bone {
 }
 ```
 
-## My Opinion
+### My Opinion
 If we have just one attribute used in the toString() method, we can return the string directly
