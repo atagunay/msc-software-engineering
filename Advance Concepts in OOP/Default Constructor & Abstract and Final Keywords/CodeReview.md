@@ -1,4 +1,4 @@
-![uml](/images/uml.jpg)
+![uml](/images/Advance%20Concepts%20in%20OOP/uml.jpg)
 
 ```java
 // We can't create new objects from the abstract classes
