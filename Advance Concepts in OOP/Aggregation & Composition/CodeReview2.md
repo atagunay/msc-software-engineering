@@ -112,7 +112,7 @@ abstract class AbstractPet{
     String name;
 
     // Constructor
-    Pet(name){
+    AbstractPet(name){
         // unless you define your own super or this first line of every constructor is;
         // super();
         this.name = name;
@@ -129,7 +129,7 @@ abstract class AbstractPet{
 }
 
 // subclass
-class Dog extends AbstractPet{
+class DogFromAbstract extends AbstractPet{
     
     // Overrided method
     @Override
@@ -177,7 +177,7 @@ class Dog extends AbstractPet{
     Pet dog = new Dog();
     dog.makeSound(); // Default sound
 
-    AbstractPet dog = new Dog();
+    AbstractPet dog = new DogFromAbstract();
     dog.makeSound(); // Hav Hav Hav!!!
 
 ```
@@ -187,7 +187,7 @@ class Dog extends AbstractPet{
 <u>USE ABSTRACT CLASS</u>
 
 * The main difference between these two examples is the usage of the make sound method.
-* In a real-world scenario, there is no creature type of pet. There are several creatures, and all of them have their kind. We called a group of creatures a Pet.
+* In a real-world scenario, there is no creature type of pet. There are several creatures, and all of them have their kind. We called a group of creatures as pet.
 * For this reason, we should not create any object from the Pet.  The pet should hold a reference to some animals.
 * In addition, pets don't have a common sound. The method of making sounds should be overridden in each class because all pets have unique sounds. 
     
@@ -250,6 +250,7 @@ class Dog extends Pet{
 
 ### Usage For Client Programmers
 ```java
+    // Enum validation effect
     Pet pet = new Dog("tom", "heyy", "Male"); // it works correctly
     Pet pet_2 = new Dog("tom", "heyy", "No"); // it sets gender as null
 ```

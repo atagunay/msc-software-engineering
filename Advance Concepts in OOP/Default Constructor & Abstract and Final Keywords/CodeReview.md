@@ -1,11 +1,13 @@
 ![uml](/images/Advance%20Concepts%20in%20OOP/uml.jpg)
 
+## Compilable code
+
 ```java
 // We can't create new objects from the abstract classes
 abstract class Bird {
     boolean cansing;
 
-   // It is constructor
+   // It is zero arg constructor not a default constructor
    // The default constructor is the no-argument constructor automatically generated 
    // unless you define another constructor.
    // So we can remove this method
@@ -40,6 +42,7 @@ abstract class Bird {
      // super(); it means Bird()
    }
 
+   @Override 
    void sing() {
      System.out.println("Cik cik cik from FlyingBird");
    }
@@ -55,6 +58,7 @@ abstract class Bird {
  abstract class FlightlessBird extends Bird{
    FlightlessBird(){};
 
+   @Override 
    void sing(){
      System.out.println("Cik cik cik from FlightlessBird");
    }
@@ -123,14 +127,10 @@ abstract class Bird {
 
  ```java
  // We can't create new objects from the abstract classes
-abstract class Bird {
+abstract class BirdAbstract{
     boolean cansing;
  
-   // It is constructor
-   // The default constructor is the no-argument constructor automatically generated 
-   // unless you define another constructor.
-   // So we can remove this method
-   Bird() {
+   BirdAbstract() {
      // First line of every constructor unless you define your own super or this is super();
      // super();
    }
@@ -146,19 +146,22 @@ abstract class Bird {
  
    // final void sings() {} => can't overrided
  }
+
+ class SubBirdFromAbstract extends BirdAbstract{
+    @Override
+    void sing(){
+      System.out.println("overrided method");
+    }
+ }
  ```
 
  ### Example of `class Bird`
 
   ```java
-  // We can create new objects from class
+  // We can create new objects from this class
  abstract class Bird {
     boolean cansing;
  
-   // It is constructor
-   // The default constructor is the no-argument constructor automatically generated 
-   // unless you define another constructor.
-   // So we can remove this method
    Bird() {
      // First line of every constructor unless you define your own super or this is super();
      // super();
@@ -169,18 +172,56 @@ abstract class Bird {
       System.out.println("Cik Cik Cik!");
     }
  }
+
+  class SubBird extends Bird{
+ }
  ```
 
- ### My Opinion
-There are several birds in the example code and they  have common attributes and methods.  For this reason, we should keep these common things in a single place.  We should prefer abstract class.
+### Usage For Client Programmers
+```java
+  // Class usage
+  Bird bird = new SubBird(); // It works
+
+  // Invalid Abstract usage 
+  BirdAbstract bird_2 = new BirdAbstract(); // It throws an error
+  
+  // Valid Abstract usage 
+  // Polymorphism
+  BirdAbstract bird_3 = new SubBirdFromAbstract(); // It works
+```
+
+### My Opinion
+
+<u>USE ABSTRACT CLASS</u>
+
+* The main difference between these two examples is the usage of the sing method.
+* In a real-world scenario, there is no creature type of bird. There are several creatures, and all of them have their kind. We called a group of creatures as bird.
+* For this reason, we should not create any object from the Bird.  The bird should hold a reference to some birds.
+* In addition, birds don't have a common sound. The method of sing should be overridden in each class because all birds have unique sounds. 
 
 ## Data Types For `cansing`
   ```java
  abstract class Bird {
     // This value can be true/false. For this reason, we should boolean type
     boolean cansing;
+
+    Bird(boolean cansing){
+      this.cansing = cansing;
+    }
+ }
+
+ class SubBird extends Bird{
+    SubBird(boolean cansing){
+      // Bird(cansing);
+      super(cansing);
+    }
  }
  ```
+
+ ### Usage For Client Programmers
+```java
+  Bird bird = new SubBird(true); 
+```
 
 ##  `Bird(...)` Constructor Options
 ```java
@@ -189,7 +230,7 @@ abstract class Bird {
  
    Bird() {
      // First line of every constructor unless you define your own super or this is super();
-     // super();
+     cansing = true;
    }
 
   // Overloading: Same methods with different parameter signs
@@ -197,74 +238,172 @@ abstract class Bird {
       this.cansing = cansing;
    }
  }
+
+  class SubBird extends Bird{
+    SubBird(boolean cansing){
+      // Bird(cansing);
+      super(cansing);
+    }
+ }
+```
+
+ ### Usage For Client Programmers
+```java
+  Bird bird = new SubBird(false); // Set cansing = false
+  Bird bird_2 = new SubBird(); // Set cansing = true
 ```
 
 ### My Opinion
-You can define objects in different ways due to multiple constructors. This feature allows you to use the class more flexibly.
+You can define objects in different ways due to multiple constructors. This feature allows you to use the class more flexible. If you can define multiple constructors with different parameters, you decrease crash rating and cover multiple cases with values. 
 
 ##  `abstract String sing()` Vs `String sing()` Vs `void sing()`
 
 ```java
 abstract class Bird{
     // It must be overridden by the subclass 
-    abstract String sing();
+    abstract String singAbstract();
     
     // It can used or overridden by the subclass
-    String sing(){
+    String singString(){
         return "cik cik";
     }
 
     // It can used or overridden by the subclass
-    void sing(){
+    void singVoid(){
         System.out.println("cik cik");
     }
 }
 ```
 
+### Usage For Client Programmers
+```java
+class SubBird extend Bird(){
+    
+    @Override
+    String singAbstract(){
+        return "cik cik";
+    }
+
+    String toString(){
+        return "SubBird" + singAbstract();
+    }
+}
+
+class SubBird2 extend Bird(){
+    
+    @Override
+    String singAbstract(){
+        return "gak gak";
+    }
+
+    String toString(){
+        return "SubBird2" + singAbstract();
+    }
+}
+
+Bird bird_1 = new SubBird();
+dog.singAbstract(); // cik cik
+
+Bird bird_2 = new SubBird2();
+cat.singAbstract(); // gak gak
+```
+
 ### My Opinion
-Each bird has its sound. For this reason, each bird class should override the sing method for its sounds, and the method return type should be String. If you set the method return type to void, you can not use that method out of print-out operation, but you might want to use it in a toString() method or inside another method.  
+<u>USE ABSTRACT SING</u>
+
+* Each bird has its sound. For this reason, each bird class should override the sing method for its sounds and the method return type should be String
+
+* If you set the method return type to void, you can not use that method out of print-out operation, but you might want to use it in a toString() method or inside another method.  
 
 
 ##  `abstract boolean sings()` Vs `boolean sings()` Vs `void sings()`
 ```java
 abstract class Bird{
     // It must be overridden by the subclass 
-    abstract String sings();
+    abstract String singsAbstract();
     
     // It can used or overridden by the subclass
-    boolean sings(){
+    boolean singsBoolean(){
         return true;
     }
 
     // It can used or overridden by the subclass
-    void sings(){
+    void singsVoid(){
         System.out.println("True");
     }
 }
 ```
 
-### My opinion
-Almost all birds can sing. For this reason, we should use `boolean sings`. It return True as a default. If there will be a sick bird that can not sing then we can override that method.
-
-## Attribute `printString` vs just return value?
+### Usage For Client Programmers
 ```java
-  abstract class FlyingBird extends Bird {
+// sub class
+class WoodenBird extends Bird{
+    // Normally, we wait that all birds can sing
+    // If there is a special case, we can override method
+    @Override
+    boolean singsBoolean(){
+      return false;
+  }
+}
+```
+
+
+### My Opinion
+<u>USE BOOLEAN SINGS</u>
+
+* Normally, Each bird can sing. For this reason, each bird class should not override the sings method for its sounds. If there will be a special case, we can override default method and the method return type should be boolean
+
+* If you set the method return type to void, you can not use that method out of print-out operation, but you might want to use it in a toString() method or inside another method.  
+
+## Attribute `printString` vs just print out value?
+```java
+// base class
+abstract class FlyingBird extends Bird {
   String printString = "Cik cik cik"
 
   void sing() {
     System.out.println(printString + "from FlyingBird");
   }
+
+  void setPrintString(String sound){
+    this.printString = sound;
+  }
+}
+
+// sub class
+class SubBird extends FlyingBird{
 }
 ```
 
 ```java
-  abstract class FlyingBird extends Bird {
+// base class
+abstract class FlyingBird extends Bird {
   
   void sing() {
     System.out.println("Cik cik cik from FlyingBird");
   }
 }
+
+// sub class
+class SubBird extends FlyingBird{
+}
+```
+
+### Usage For Client Programmers
+```java
+    // with `printString` variable
+    FlyingBird bird_1 = new SubBird();
+    bird_1.sing(); // Cik cik cik from flyingbird
+    bird_1.setPrintString("new value");
+    bird_1.sing(); // new value from flyingbird
+
+    // -----------------
+
+    // without `printString`
+    FlyingBird bird_2 = new SubBird();
+    bone.sing(); // Cik cik cik from FlyingBird
+    // you can not change the value
 ```
 
 ### My Opinion
-If we want to edit sound and use this sound in different methods then we can create a variable like `printString`
+If we have just one attribute used in the sing method, we can return the string directly but if we have several attributes and we want to update values of these attributes then we should use variables for holding data. Also, we might want to use same data in different values. 
