@@ -166,12 +166,6 @@ class Pet{
 
 // subclass
 class Dog extends AbstractPet{
-    
-    // Overrided method
-    @Override
-    String makeSound{
-        return "Hav Hav Hav!!!";
-    }
 }
 ```
 
@@ -181,10 +175,10 @@ class Dog extends AbstractPet{
     AbstractPet pet_2 = new AbstractPet(); // It throws an error
 
     Pet dog = new Dog();
-    dog.makeSound(); // you can use this method with overriding or without overriding
+    dog.makeSound(); // Default sound
 
     AbstractPet dog = new Dog();
-    dog.makeSound(); // you can use this method with overriding
+    dog.makeSound(); // Hav Hav Hav!!!
 
 ```
 
@@ -629,17 +623,21 @@ class Dog extends Pet {
 
 ### Usage For Client Programmers
 ```java
+    // getBone()
     Dog dog = new Dog();
-    dog.getBone();
+    dog.getBone(); // Reach data with getter method
 
     // -------------
 
+    // Direct access
     Dog dog = new Dog();
-    dog.bone;
+    dog.bone; // Reach data directly
 ```
 
 ## My opinion
-If we use `Dog.bone` and then we want to change the variable name of bone,  `Dog.bone` does not work, but if we use the getter method, we can change the variable name and manipulate the data. Also, if we use direct access and then change the access modifier option of that variable, client programmer will come accross an error while he/his triying to reach the variable.
+* If we use `Dog.bone` and then we want to change the variable name of bone,  `Dog.bone` does not work, but if we use the getter method, we can change the variable name and manipulate the data. 
+
+* Also, if we use direct access and then change the access modifier option of that variable, client programmer will come accross an error while he/his triying to reach the variable.
 
 ## `Bone.java` Worthy Of A Class? If So Why?
 ```java
