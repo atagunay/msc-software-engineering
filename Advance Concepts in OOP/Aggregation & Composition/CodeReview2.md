@@ -673,7 +673,7 @@ class Bone {
     String date = "10/02/2024"
 
     String toString() {
-        return "Bone:" + printString + "@" + date;
+        return "Bone: " + printString + " @ " + date;
     }
 }
 ```
@@ -686,6 +686,20 @@ class Bone {
         return "$==$";;
     }
 }
+```
+
+### Usage For Client Programmers
+```java
+    // with `printString` 
+    Bone bone = new Bone();
+    bone.toString(); // Bone: $==$ @ 10/02/2024
+
+    // -----------------
+
+    // without `printString`
+    Bone bone = new Bone();
+    bone.toString(); // $==$
+
 ```
 
 ### My Opinion
