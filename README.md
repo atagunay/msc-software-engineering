@@ -5,11 +5,11 @@ This GitHub repository contains my assignments and lecture notes related to the 
 ## Directory Structure
 
 - [Advance Concepts in OOP](Advance%20Concepts%20in%20OOP/): Assignments and notes for Advance Concepts in OOP.
-- [Compiler Design Lecture](Compiler%20Design%20Lecture/): Assignments and notes for Compiler Design Lecture.
+- [Spatial Database](Spatial%20Database/): Assignments and notes for Spatial Database.
 
 ## How to Use
 
-You can benefit from this repository in the following ways:
+You canhttps://file%252B.vscode-resource.vscode-cdn.net/Users/atagunay/Desktop/msc-software-engineering/Spatial%2520Database/ benefit from this repository in the following ways:
 
 1. Navigate to the folder of the course you are interested in.
 2. Assignments: Assignments for the course and the code written for these assignments can be found in this folder.
