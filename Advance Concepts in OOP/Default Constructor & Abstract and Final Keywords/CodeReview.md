@@ -10,7 +10,6 @@ abstract class Bird {
    // It is zero arg constructor not a default constructor
    // The default constructor is the no-argument constructor automatically generated 
    // unless you define another constructor.
-   // So we can remove this method
    Bird() {
      // First line of every constructor unless you define your own super or this is super();
      // super();
@@ -36,7 +35,6 @@ abstract class Bird {
    // It is constructor
    // The default constructor is the no-argument constructor automatically generated 
    // unless you define another constructor.
-   // So we can remove this method
    FlyingBird(){
      // First line of every constructor unless you define your own super or this is super();
      // super(); it means Bird()
@@ -56,6 +54,7 @@ abstract class Bird {
  // FlightlessBird.java (and equivalent for similar: FlyingBird.java)
  // We can't create new objects from the abstract classes
  abstract class FlightlessBird extends Bird{
+   // Constructor
    FlightlessBird(){};
 
    @Override 
@@ -116,7 +115,7 @@ abstract class Bird {
      System.out.println(bird_1.cansing);
 
      bird_1.sing(); // This method comes from the BlackBird class
-     // bird_2.signs(); // This method comes from the Bird class
+     // bird_2.sings(); // This method comes from the Bird class
    }
  }
  ```
@@ -194,7 +193,7 @@ abstract class BirdAbstract{
 
 <u>USE ABSTRACT CLASS</u>
 
-* The main difference between these two examples is the usage of the sing method.
+* The main difference between these two examples is the usage of the sing method and and purpose of Bird class.
 * In a real-world scenario, there is no creature type of bird. There are several creatures, and all of them have their kind. We called a group of creatures as bird.
 * For this reason, we should not create any object from the Bird.  The bird should hold a reference to some birds.
 * In addition, birds don't have a common sound. The method of sing should be overridden in each class because all birds have unique sounds. 
@@ -202,7 +201,7 @@ abstract class BirdAbstract{
 ## Data Types For `cansing`
   ```java
  abstract class Bird {
-    // This value can be true/false. For this reason, we should boolean type
+    // This value can be true/false. For this reason, we should use boolean type
     boolean cansing;
 
     Bird(boolean cansing){
@@ -226,7 +225,7 @@ abstract class BirdAbstract{
 ##  `Bird(...)` Constructor Options
 ```java
 abstract class Bird {
-    boolean cansing;
+    boolean cansing; // lazy loading
  
    Bird() {
      // First line of every constructor unless you define your own super or this is super();
@@ -249,8 +248,8 @@ abstract class Bird {
 
  ### Usage For Client Programmers
 ```java
-  Bird bird = new SubBird(false); // Set cansing = false
-  Bird bird_2 = new SubBird(); // Set cansing = true
+  Bird bird = new SubBird(false);  // Set cansing = false
+  Bird bird_2 = new SubBird();     // Set cansing = true
 ```
 
 ### My Opinion
@@ -260,7 +259,7 @@ You can define objects in different ways due to multiple constructors. This feat
 
 ```java
 abstract class Bird{
-    // It must be overridden by the subclass 
+    // It must be overridden by the subclasses
     abstract String singAbstract();
     
     // It can used or overridden by the subclass
@@ -296,16 +295,31 @@ class SubBird2 extend Bird(){
         return "gak gak";
     }
 
+    @Override
+    String singString(){
+        return "gak gak";
+    }
+
+    @Override
+    void singVoid(){
+        System.out.println("gak gak");
+    }
+
     String toString(){
         return "SubBird2" + singAbstract();
     }
 }
 
 Bird bird_1 = new SubBird();
-dog.singAbstract(); // cik cik
+bird_1.singAbstract();      // return "cik cik"
+bird_1.singString();        // return "cik cik"
+bird_1.singVoid();          // printout "cik cik"
+
 
 Bird bird_2 = new SubBird2();
-cat.singAbstract(); // gak gak
+bird_2.singAbstract();       // return "gak gak"
+bird_2.singString();         // return "gak gak"
+bird_2.singVoid();           // printout "gak gak"
 ```
 
 ### My Opinion
@@ -332,12 +346,13 @@ abstract class Bird{
         System.out.println("True");
     }
 }
-```
 
-### Usage For Client Programmers
-```java
 // sub class
 class WoodenBird extends Bird{
+    String singsAbstract(){
+      return "yes of course";
+    }
+
     // Normally, we wait that all birds can sing
     // If there is a special case, we can override method
     @Override
@@ -345,6 +360,14 @@ class WoodenBird extends Bird{
       return false;
   }
 }
+```
+
+### Usage For Client Programmers
+```java
+Bird bird = new WoodenBird();
+bird.singsAbstract();       // return "yes of course"
+bird.singsBoolean();        // return false
+bird.singsVoid();           // printout "True"
 ```
 
 
@@ -359,7 +382,7 @@ class WoodenBird extends Bird{
 ```java
 // base class
 abstract class FlyingBird extends Bird {
-  String printString = "Cik cik cik"
+  private String printString = "Cik cik cik"
 
   void sing() {
     System.out.println(printString + "from FlyingBird");
