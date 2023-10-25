@@ -2,6 +2,8 @@
 
 ```java
 abstract class Character {
+  // HAS-A Relatonship
+  // composition  
   private WeaponBehaviour weaponBehaviour;
 
   public void setWeapon(WeaponBehaviour weaponBehaviour){
