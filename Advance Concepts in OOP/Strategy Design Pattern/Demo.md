@@ -9,6 +9,7 @@ abstract class Character {
   }
 
   public void fight(){
+    // delegate method
     weaponBehaviour.useWeapon();
   }
 }
