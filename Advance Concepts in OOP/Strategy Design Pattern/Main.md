@@ -132,7 +132,7 @@ class RedHeadDuck extends Duck {
 
 ### Pain Points
 
-* By putting `fly()` in the superclass, he gave flying ability to ALL ducks, including those that shouldn’t.
+* By putting `fly()` in the superclass, I gave flying ability to ALL ducks, including those that shouldn’t.
 
 ```java
 RedHeadDuck duck = new RedHeadDuck();
@@ -175,7 +175,7 @@ class Duck {
 class RubberDuck {
     quack() void [squak]
     display() void [rubber duck]
-    fly() void [override to do bothing]  
+    fly() void [override to do nothing]  
 }
 ```
 
@@ -401,8 +401,8 @@ have a fly() method. Also, I might as well make a Quackable, too, since not all 
 ```mermaid
     classDiagram
 
-    Flyable <|.. MallardDuck
-    Flyable <|.. RedHeadDuck
+    Flyable <|.. MallardDuck : implements
+    Flyable <|.. RedHeadDuck : implements
     Quackable <|.. RubberDuck : implements
     Quackable <|.. MallardDuck : implements
     Quackable <|.. RedHeadDuck : implements
@@ -564,7 +564,7 @@ What design issue results from trying to replace inheritance with the use of int
 
 * Difficult Maintenance
 
-    * Suppose we come priority bug in fly behavior. Then, we have to edit all fly methods.
+    * Suppose we come across a priority bug in fly behavior. Then, we have to edit all fly methods.
 
     ```java
     // RedHeadDuck.java
@@ -856,18 +856,31 @@ class RubberDuck {
 
     // Quackins.java
     abstract class Quackins {
-        void quack();
+        void quack(){
+            // defult implementation
+            // ...
+        }
     }
 
     // Flying.java
     abstract class Flying {
-        void fly();
+        void fly(){
+            // defult implementation
+            //...
+        }
     }
 
     // QuackFly.java
     abstract class QuackFly {
-        void quack();
-        void fly();
+        void quack(){
+            // defult implementation
+            // ..
+        }
+
+        void fly(){
+            // defult implementation
+            // ..
+        }
     }
 
     // RubberDuck.java
