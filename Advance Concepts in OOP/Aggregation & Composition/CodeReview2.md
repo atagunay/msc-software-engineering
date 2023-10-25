@@ -113,22 +113,23 @@ abstract class AbstractPet{
 
     // Constructor
     AbstractPet(name){
-        // unless you define your own super or this first line of every constructor is;
-        // super();
+        // Unless you define your own super or this first line of every constructor is;
+        // Super();
         this.name = name;
     }
 
 
     // It must be overridden by the subclass 
+    // asbtract keyword !!
     abstract String makeSound();
 
-    // It can used or overridden by the subclass
+    // It can used directly or overridden by the subclass
     String walk(){
         return "Walking is starting...";
     }
 }
 
-// subclass
+// Subclass
 class DogFromAbstract extends AbstractPet{
     
     // Overrided method
@@ -142,14 +143,14 @@ class DogFromAbstract extends AbstractPet{
 ### Example of `class Pet`
 
 ```java
-// base class
+// Base class
 class Pet{
     String name;
 
     // Constructor
     Pet(name){
-        // unless you define your own super or this first line of every constructor is;
-        // super();
+        // Unless you define your own super or this first line of every constructor is;
+        // Super();
         this.name = name;
     }
 
@@ -171,14 +172,18 @@ class Dog extends AbstractPet{
 
 ### Usage For Client Programmers
 ```java
-    Pet pet = new Pet(); // It works
-    AbstractPet pet_2 = new AbstractPet(); // It throws an error
+    // class Pet
+    Pet pet = new Pet();        // It works
+    Pet pet = new Pet("Tom");   // It works
+    
+    // Example of polymorphism with Pet class
+    Pet dog = new Dog();        // It works
+    dog.makeSound();            // Default sound
 
-    Pet dog = new Dog();
-    dog.makeSound(); // Default sound
-
-    AbstractPet dog = new DogFromAbstract();
-    dog.makeSound(); // Hav Hav Hav!!!
+    // class AbstractPet
+    AbstractPet pet_2 = new AbstractPet();      // It throws an error
+    AbstractPet dog = new DogFromAbstract();    // It works
+    dog.makeSound();                             // Hav Hav Hav!!!
 
 ```
 
@@ -186,10 +191,10 @@ class Dog extends AbstractPet{
 
 <u>USE ABSTRACT CLASS</u>
 
-* The main difference between these two examples is the usage of the make sound method.
+* The main differences between these two examples are the usage of the make sound method and purpose of the Pet class.
 * In a real-world scenario, there is no creature type of pet. There are several creatures, and all of them have their kind. We called a group of creatures as pet.
-* For this reason, we should not create any object from the Pet.  The pet should hold a reference to some animals.
-* In addition, pets don't have a common sound. The method of making sounds should be overridden in each class because all pets have unique sounds. 
+* For this reason, we should not create any object from the Pet.  The pet should hold a reference to some animals. We should use abstract Pet class.
+* In addition, pets don't have a common sound. The method of making sounds should be overridden in each class because all pets have unique sounds. We should abstract makeSound() method.
     
 
 
@@ -217,13 +222,13 @@ abstract class Pet{
     Gender checkEnum(String gender){
         Gender result = null;
 
-        // iterate gender values
+        // iterate gender values with foreach
         for (Gender g : Gender.values()){
             
             // if enum includes user input
             if (g.name().equalsIgnoreCase(gender)){
                 result = g; // set enum value
-                break;
+                break;      // break the loop
             }     
         }
 
@@ -243,6 +248,7 @@ abstract class Pet{
 class Dog extends Pet{
     // constructor
     Dog(String name, String sound, String gender){
+        // Pet(name, sound, gender); 
         super(name, sound, gender);
     }
 }
@@ -251,8 +257,18 @@ class Dog extends Pet{
 ### Usage For Client Programmers
 ```java
     // Enum validation effect
-    Pet pet = new Dog("tom", "heyy", "Male"); // it works correctly
-    Pet pet_2 = new Dog("tom", "heyy", "No"); // it sets gender as null
+    
+    // it works correctly
+    // name: tom
+    // sound: heyy
+    // gender: Male
+    Pet pet = new Dog("tom", "heyy", "Male"); 
+    
+    // it sets gender as null
+    // name: tom
+    // sound: heyy
+    // gender: null
+    Pet pet_2 = new Dog("tom", "heyy", "No"); 
 ```
 
 ##  `Pet(...)` Constructor Options 
@@ -337,8 +353,13 @@ class Dog extends Pet{
 
 ### Usage For Client Programmers
 ```java
+    // Option 1
     Pet dog = new Dog("Tom","Hav hav","Male");
+
+    // Option 2
     Pet dog = new Dog("Max","Hav hav");
+
+    // Option 3
     Pet dog = new Dog();
 ```
 
@@ -349,15 +370,15 @@ You can define objects in different ways due to multiple constructors. This feat
 
 ```java
 abstract class Pet{
-    // It must be overridden by the subclass 
+    // It must be overridden by the subclasses
     abstract String makeSoundAbstract();
     
-    // It can used or overridden by the subclass
+    // It can used directly or overridden by the subclass
     String makeSoundString(){
         return "unknown";
     }
 
-    // It can used or overridden by the subclass
+    // It can used directly or overridden by the subclass
     void makeSoundVoid(){
         System.out.println("unknown");
     }
@@ -385,16 +406,30 @@ class Cat extend Pet(){
         return "Miav miav!";
     }
 
+    @Override
+    String makeSoundString(){
+        return "New sound"
+    }
+
+    @Override
+    void makeSoundVoid(){
+        System.out.println("New sound");
+    }
+
     String toString(){
         return "Cat" + makeSoundAbstract();
     }
 }
 
 Pet dog = new Pet();
-dog.makeSoundAbstract(); // hav hav
+dog.makeSoundAbstract(); // return "hav hav"
+dog.makeSoundString();   // return "unknown"
+dog.makeSoundVoid();     // print "unknown"
 
 Pet cat = new Cat();
 cat.makeSoundAbstract(); // miav miav
+cat.makeSoundString();   // return "New sound"
+cat.makeSoundVoid();     // print "New sound"
 ```
 
 ### My Opinion
@@ -408,7 +443,7 @@ cat.makeSoundAbstract(); // miav miav
 
 ```java
 // FoodThing should be abstract because a dog has a bone and a cat has a fish. 
-// They don't have something like food thing. We assign spesific foods to animals.
+// They don't have something like FoodThing. We assign spesific foods to animals.
 class abstract FoodThing{
     String printString;
 
@@ -511,6 +546,12 @@ class Dog extends Pet {
 }
 ```
 
+### Usage For Client Programmers
+```java
+    Pet dog = new Dog("Tom", "Male");
+    dog.Bone; // returns Bone object with lazy loading 
+```
+
 ### Example of `Bone bone = new Bone(); `
 ```java
 class Dog extends Pet {
@@ -520,9 +561,14 @@ class Dog extends Pet {
     // Constructor
     Dog(String name, String gender) {
         super(name, gender, "Woof");
-        bone = new Bone();
     }
 }
+```
+
+### Usage For Client Programmers
+```java
+    Pet dog = new Dog("Tom", "Male");
+    dog.Bone; // returns Bone object with eager loading 
 ```
 
 ### My Opinion
@@ -537,7 +583,6 @@ class Dog extends Pet {
 class Dog extends Pet {
     Bone bone; // Lazy loading
 
-    
     Dog() {
         // Dog(name, gender, "Woof");
         this(name, gender, "Woof");
@@ -550,12 +595,6 @@ class Dog extends Pet {
     }
 
     // Overloading
-    Dog(String gender) {
-        // Dog(name, gender, "Woof");
-        this("unknown", gender, "Woof");
-    }
-
-    // Overloading
     Dog(String name, String gender) {
         // Pet(name, gender, "Woof");
         super(name, gender, "Woof");
@@ -565,8 +604,9 @@ class Dog extends Pet {
 ```
 ### Usage For Client Programmers
 ```java
-    Pet dog = new Dog("Max","Hav hav"); // it calls two parameter constructor
-    Pet dog = new Dog(); // it calls zero-arg constructor
+    Pet dog_1 = new Dog(); // it calls zero-arg constructor
+    Pet dog_2 = new Dog("Tom");
+    Pet dog_3 = new Dog("Tom", "Male"); // it calls two parameter constructor
 ```
 
 ### My Opinion
@@ -582,7 +622,6 @@ class Dog extends Pet {
         // First line of every constructor unless you define your own super or this is super();
         // super();
 
-    
         super(name, gender, "Woof"); // Pet(name, gender, "Woof");
         bone = new Bone();
     }
@@ -593,7 +632,7 @@ class Dog extends Pet {
 ```java
     // it calls two parameter constructor
     // Dog constructor -> Pet Constructor with super keyword
-    Pet dog = new Dog("Max","Hav hav"); 
+    Pet dog = new Dog("Max","Male"); 
 ```
 
  ## `getBone()` Vs `Dog.bone` 
@@ -636,6 +675,9 @@ class Dog extends Pet {
 ```
 
 ## My opinion
+
+<u>USE GETTER METHOD</u>
+
 * If we use `Dog.bone` and then we want to change the variable name of bone,  `Dog.bone` does not work, but if we use the getter method, we can change the variable name and manipulate the data. 
 
 * Also, if we use direct access and then change the access modifier option of that variable, client programmer will come accross an error while he/his triying to reach the variable.
@@ -660,7 +702,7 @@ class Fish {
 ```
 
 ## My Opinion
-Yes, there should be a class. Because the way each food is represented is different. Each food has its own unique characteristics. For example: the sound that comes out after you beat, is there a date of deterioration or not?, under what conditions should be stored, etc.
+Yes, it should be a class. Because the way each food is represented is different. Each food has its own unique characteristics. For example: the sound that comes out after you beat, is there a date of deterioration or not?, under what conditions should be stored, etc. In this example, bone and fish classes have their printString variables and they might be some special attributes in bone class which fish class don't have.
 
 ## Attribute `printString` - Worth Having This Or Not?
 
@@ -702,4 +744,4 @@ class Bone {
 ```
 
 ### My Opinion
-If we have just one attribute used in the toString() method, we can return the string directly.
+If we have just one attribute used in the toString() method, we can return the string directly. Otherwise, we should printString variable.
