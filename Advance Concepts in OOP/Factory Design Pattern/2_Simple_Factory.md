@@ -53,10 +53,10 @@ Factories handle the details of object creation. Once we have a SimplePizzaFacto
 ### Explaination Of the Class Diagram
 <hr>
 
-![Alt text](image-1.png)
+![Simple Factory Class Diagram Exp](/images/Advance%20Concepts%20in%20OOP/factory_design_pattern_5.png)
 
 ### Parallel Hierarchy
-![Alt text](image.png)
+![Simple Factory Parallel Hierarchy](/images/Advance%20Concepts%20in%20OOP/factory_design_pattern_6.png)
 
 ### Implementation Of the `Factory Method`
 <hr>
