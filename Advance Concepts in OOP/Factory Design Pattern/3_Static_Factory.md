@@ -21,15 +21,14 @@ Defining a simple factory as a static method is a common technique and is often 
 
 ```mermaid
     classDiagram
-        PizzaStore *-- SimplePizzaFactory : HAS-A
+        PizzaStore ..> SimplePizzaFactory : USES AS STATIC
         SimplePizzaFactory *-- Pizza : HAS-A
         Pizza <|-- CheesePizza : IS-A
         Pizza <|-- PepperoniPizza : IS-A
         Pizza <|-- VeggiePizza : IS-A
 
         class PizzaStore{
-            - SimplePizzaFactory factory
-            + PizzaStore(SimplePizzaFactory factory) : void
+            + PizzaStore() : void
             - orderPizza(String type) : Pizza
         }
 
@@ -51,14 +50,8 @@ Defining a simple factory as a static method is a common technique and is often 
         class VeggiePizza
 ```
 
-
-### Explaination Of the Class Diagram
-<hr>
-
-![Alt text](image-1.png)
-
 ### Parallel Hierarchy
-![Alt text](image.png)
+![Static Factory Class Diagram](/images/Advance%20Concepts%20in%20OOP/factory_design_pattern_4.png)
 
 ### Implementation Of the Factory Method
 <hr>
@@ -140,6 +133,12 @@ CheesePizza : boxing
 * https://replit.com/@AtaGunay/StaticFactory
 
 ### Full Implementation Class Diagram
-![Alt text](image-11.png)
+![Simple Factory Class Diagram](/images/Advance%20Concepts%20in%20OOP/factory_design_pattern_3.png)
 
 ###  How to identify this variant of factory as distinct from another?
+
+* It applies `Simple Factory` approach with the static factory method.
+
+* You can call the factory method without creating a factory
+
+* You can’t subclass and change the behavior of the create method because of the static keyword.
