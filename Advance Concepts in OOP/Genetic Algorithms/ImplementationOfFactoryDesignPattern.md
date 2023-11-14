@@ -16,7 +16,7 @@
 
 * WordDnaFactory: Concrete Factory
 
-![Alt text](image.png)
+![image](/images/Advance%20Concepts%20in%20OOP/genetic_3.png)
 
 ## Implementation
 
