@@ -24,7 +24,7 @@ The Factory Method Pattern defines an interface for creating an object, but lets
 
 * But what about regional differences? Each franchise might want to offer different styles of pizzas (New York, Chicago, and California, to name a few) 
 
-![Alt text](image-2.png)
+![Factory Method Scenerio](/images/Advance%20Concepts%20in%20OOP/factory_design_pattern_9.png)
 
 <b>Approach With Simple Factory</b>
 <hr>
@@ -40,7 +40,7 @@ ChicagoPizzaFactory chicagoFactory = new ChicagoPizzaFactory(); PizzaStore chica
 chicagoStore.orderPizza(“Veggie”);
 ```
 
-But we can use `Factory Method Pattern` because in Simple Factory Approach you can not control the process after the creation because every factory uses own preapre, bake, cut and box methods
+But we can use `Factory Method Pattern` because in Simple Factory Approach you can not control the process after the creation. Every factory uses own preapre, bake, cut and box methods
 
 ## Class Diagram
 
@@ -79,10 +79,10 @@ But we can use `Factory Method Pattern` because in Simple Factory Approach you c
             createPizza(String type) : Pizza
         }
 ```
-![Alt text](image-5.png)
+![Factory Method Class Diagram](/images/Advance%20Concepts%20in%20OOP/factory_design_pattern_8.png)
 
 ### Parallel Hierarchy
-![Alt text](image-3.png)
+![Factory Method Class Diagram](/images/Advance%20Concepts%20in%20OOP/factory_design_pattern_7.png)
 
 ## Implementation Of Factory Method
 PizzaStore.java
@@ -189,6 +189,12 @@ ChicagoPepperoniPizza : boxing
 * https://replit.com/@AtaGunay/FactoryMethod
 
 ## Full Implementation Class Diagram
-![Alt text](image-9.png)
+![Factory Method Class Diagram](/images/Advance%20Concepts%20in%20OOP/factory_design_pattern_10.png)
 
 ###  How to identify this variant of factory as distinct from another?
+
+* It uses the classes with inheritance to create.
+
+* To create objects using Factory Method, you need to extend a class and override a factory method.
+
+* You just subclass abstract factory class and implement abstract method!

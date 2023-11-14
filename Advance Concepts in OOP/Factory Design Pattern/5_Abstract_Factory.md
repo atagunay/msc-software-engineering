@@ -6,7 +6,6 @@
 
 <hr>
 
-
 An Abstract Factory gives us an interface for creating a family of products. By writing code that uses this interface, we decouple our code from the actual factory that creates the products.
 
 * All Pizzas are made from the same components, but each region has a different implementation of those components.
@@ -15,11 +14,10 @@ An Abstract Factory gives us an interface for creating a family of products. By 
 
 * Methods to create products in an Abstract Factory are often implemented with a Factory Method...
 
-## Abstract Factory Class Diagram
-![Alt text](image-4.png)
+![Factory Method Class Diagram](/images/Advance%20Concepts%20in%20OOP/factory_design_pattern_11.png)
 
 ## Parallel Hierarchy
-![Alt text](image-6.png)
+![Factory Method Class Diagram](/images/Advance%20Concepts%20in%20OOP/factory_design_pattern_12.png)
 
 ## Implementation Of the Factory Method
 Cheese.java
@@ -187,6 +185,20 @@ public class CheesePizza extends Pizza {
 }
 ```
 
+Main.java
+```java
+public class Main {
+    public static void main(String[] args) {
+        NYPizzaStore NYPizzaStore = new NYPizzaStore();
+        ChicagoPizzaStore ChicagoPizzaStore = new ChicagoPizzaStore();
+
+        NYPizzaStore.orderPizza("Cheese");
+        System.out.println("-----------------------------");
+        ChicagoPizzaStore.orderPizza("Pepperoni");
+    }
+}
+```
+
 Output
 
 ```yml
@@ -212,6 +224,6 @@ PepperoniPizza : boxing
 * https://replit.com/@AtaGunay/AbstractFactory
 
 ## Full Implementation Class Diagram
-![Alt text](image-7.png)
+![Factory Method Class Diagram](/images/Advance%20Concepts%20in%20OOP/factory_design_pattern_11.png)
 
 ###  How to identify this variant of factory as distinct from another?
