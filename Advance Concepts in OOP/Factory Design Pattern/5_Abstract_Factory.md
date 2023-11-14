@@ -227,3 +227,9 @@ PepperoniPizza : boxing
 ![Factory Method Class Diagram](/images/Advance%20Concepts%20in%20OOP/factory_design_pattern_11.png)
 
 ###  How to identify this variant of factory as distinct from another?
+
+* It uses the objects with object composition to create.
+
+* It provides an abstract type for creating a family of products. Subclasses of this type define how those products are produced. 
+
+* To use the factory, you instantiate one and pass it into some code that is written against the abstract type.
