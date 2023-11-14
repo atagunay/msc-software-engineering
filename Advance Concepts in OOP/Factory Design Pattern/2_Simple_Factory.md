@@ -58,7 +58,7 @@ Factories handle the details of object creation. Once we have a SimplePizzaFacto
 ### Parallel Hierarchy
 ![Alt text](image.png)
 
-### Implementation Of the Factory Method
+### Implementation Of the `Factory Method`
 <hr>
 
 PizzaStore.java
@@ -149,7 +149,13 @@ CheesePizza : boxing
 * https://replit.com/@AtaGunay/SimpleFactory
 
 ### Full Implementation Class Diagram
-![Alt text](image-10.png)
+![Simple Factory Class Diagram](/images/Advance%20Concepts%20in%20OOP/factory_design_pattern_1.png)
 
 ###  How to identify this variant of factory as distinct from another?
+
+* Simple Factory is just a method that can return different hardcoded subtypes.
+
+*  It doesn't solve the problem with elegance, since for every new subclass of Product you will have to edit the switch statement in the create() method.
+
+* It only encapsulates the harcoded creation part
 
