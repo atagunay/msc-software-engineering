@@ -1311,10 +1311,8 @@ and (vehicle = 'truck' or vehicle = 'motorcyle')
 select * from labexam12022table where reg ~ '(1|2|3){3,4}' 
 
 -- q9
--- rows: 45
-select * from labexam12022table where 
-date_part('hour', trapts) >= 00 and date_part('minute', trapts) >= 00 and date_part('second', trapts) >= 00 
-and date_part('hour', trapts) <= 1 and date_part('minute', trapts) < 30;
+-- rows: 63
+select * from labexam12022table where date_part('hour', trapts) = 0 or (date_part('hour', trapts) = 1 and date_part('minute', trapts) < 30)
 
 -- q10
 -- rows: 124
