@@ -5,9 +5,10 @@ Usefull Links:
 
 * https://stackoverflow.com/questions/30384830/determining-fully-qualified-class-name-from-java-lang-string
 
-![Alt text](image.png)
-![Alt text](image-2.png)
-![Alt text](image-1.png)
+* https://stackoverflow.com/questions/36382372/does-inheritance-across-packages-is-possible-also-how-do-we-compile-them
+
+![steps](/images/Advance%20Concepts%20in%20OOP/access_1.png)
+![steps](/images/Advance%20Concepts%20in%20OOP/access_2.png)
 
 ##  How to public access a packaged class from outside the package?
 
@@ -177,7 +178,7 @@ class Apple {
         Banana banana = new Banana();
 
         // Access without import statement
-        System.out.println("BDD: " + banana.bdd);
+        System.out.println("BBD: " + banana.bbd);
     }
 }
 ```
@@ -191,7 +192,7 @@ package fruits;
 // Don't need to make public
 class Banana {
     // Don't need to make public
-    String bdd = "2023-11-30";
+    String bbd = "2023-11-30";
 
     // Don't need to make public
     Banana() {
@@ -245,7 +246,7 @@ class GreenApple extends Apple {
 
 * If we declare a method, property or constructor with the protected keyword, we can access the member from the same package (as with package-private access level) and in addition from all subclasses of its class, even if they lie in other packages.
 
-![Alt text](image-1.png)
+![steps](/images/Advance%20Concepts%20in%20OOP/access_2.png)
 
 * Even though they are in different packages, `A2 class` can access the `B class` because of the protected access.
 
@@ -264,8 +265,11 @@ package fruits;
 
 // Public for extended by the another class outside the package
 public class Apple {
-    // Protected for access by the subclass or package classes
+    // Protected for accessed by the subclass or package classes
     protected String BBD;
+
+    // Default for accessed by the packgae classes
+    String only_package = "You are in my package";
 }
 ```
 
@@ -278,10 +282,15 @@ package fruits;
 public class GreenApple {
     // Public for called by main
     public void taste(){
-        // It can not access by "this" keyword because it is not a subclass
+        // It can not accessed by "this" keyword because it is not a subclass
         Apple apple = new Apple();
+
+        // Access with the protected
         apple.BBD = "2023-11-23";
-        System.out.println("Eat RedApple until " + apple.BBD);
+        System.out.println("Eat GreenApple until " + apple.BBD);
+
+        // Access with the default
+        System.out.println(apple.only_package);
     }
 }
 ```
@@ -297,6 +306,7 @@ import fruits.Apple;
 public class RedApple extends Apple {
     // Public for called by main
     public void taste(){
+        // Access with the protected
         this.BBD = "2023-11-23";
         System.out.println("Eat RedApple until " + BBD);
     }
@@ -323,11 +333,30 @@ Output:
 
 ```yml
 Eat RedApple until 2023-11-23
-Eat RedApple until 2023-11-23
+Eat GreenApple until 2023-11-23
+You are in my package
 ```
 
 ### 2. Through inheritance
 
+Apple.java
+
+```java
+// Apple in the fruits package
+package fruits;
+
+// Public for extended by the another class outside the package
+public class Apple {
+    // Protected for access by the subclass or package classes
+    protected String BBD;
+
+    // Protected for access by the subclass or package classes
+    protected void makeSound(){
+        System.out.println("Kıt Kıt Kıt");
+    }
+}
+
+```
 RedApple.java
 
 ```java
@@ -367,3 +396,6 @@ Output
 Eat RedApple until 2023-11-23
 Kıt Kıt Kıt
 ```
+
+## Cheat Sheet
+![steps](/images/Advance%20Concepts%20in%20OOP/access_3.png)
