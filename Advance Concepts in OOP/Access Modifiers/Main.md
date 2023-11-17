@@ -1,9 +1,13 @@
 # Access Modifiers
-
 Usefull Links:
+
 * https://www.baeldung.com/java-access-modifiers#:~:text=When%20we%20don't%20use,package%20com.
 
 * https://stackoverflow.com/questions/30384830/determining-fully-qualified-class-name-from-java-lang-string
+
+![Alt text](image.png)
+![Alt text](image-2.png)
+![Alt text](image-1.png)
 
 ##  How to public access a packaged class from outside the package?
 
@@ -151,11 +155,15 @@ public class Main {
 }
 ```
 
-## How package access works?
+## How package access (`default`) works?
 
-When we don’t use any keyword explicitly, Java will set a default access to a given class, method or property. The default access modifier is also called package-private, which means that all members are visible within the same package but aren’t accessible from other packages.
+* When we don’t use any keyword explicitly, Java will set a default access to a given class, method or property. 
 
-### Between to classes of the same package
+* The default access modifier is also called package-private, which means that all members are visible within the same package but aren’t accessible from other packages.
+
+### 1. Between to classes of the same package
+
+* You can reach target class with package access
 
 Apple.java
 
@@ -190,4 +198,172 @@ class Banana {
         System.out.println("Banana constructor...");
     }
 }
+```
+
+### 2. Between a subclass/superclass in the same package
+
+* You can reach target class with package access
+
+Apple.java
+
+```java
+// Apple in the fruits package
+package fruits;
+
+// No need to public
+class Apple {
+
+    // No need to public
+    String BBD;
+
+    public static void main(String[] args) {
+        Apple apple = new GreenApple("2023-11-23");
+    }
+}
+```
+
+GreenApple.java
+
+```java
+// Green Apple in the fruits package
+package fruits;
+
+// GreenApple extends Apple
+class GreenApple extends Apple {
+
+    // No need to public
+    GreenApple(String bbd) {
+        this.BBD = bbd;
+    }
+}
+```
+
+## How protected access (`protected`) works?
+
+
+### 1. Distinguish protected and package access
+
+* If we declare a method, property or constructor with the protected keyword, we can access the member from the same package (as with package-private access level) and in addition from all subclasses of its class, even if they lie in other packages.
+
+![Alt text](image-1.png)
+
+* Even though they are in different packages, `A2 class` can access the `B class` because of the protected access.
+
+```
+Default Access = Package Private
+```
+
+```
+Protected Access = Package Private + Subclasses
+```
+
+Apple.java
+```java
+// Apple in the fruits package
+package fruits;
+
+// Public for extended by the another class outside the package
+public class Apple {
+    // Protected for access by the subclass or package classes
+    protected String BBD;
+}
+```
+
+GreenApple.java
+```java
+// Green Apple in the fruits package
+package fruits;
+
+// Public for called by main
+public class GreenApple {
+    // Public for called by main
+    public void taste(){
+        // It can not access by "this" keyword because it is not a subclass
+        Apple apple = new Apple();
+        apple.BBD = "2023-11-23";
+        System.out.println("Eat RedApple until " + apple.BBD);
+    }
+}
+```
+
+RedApple.java
+
+```java
+// Import Apple for extend it
+import fruits.Apple;
+
+// Extend Apple because it is public and imported by the RedApple
+// Public for called by main
+public class RedApple extends Apple {
+    // Public for called by main
+    public void taste(){
+        this.BBD = "2023-11-23";
+        System.out.println("Eat RedApple until " + BBD);
+    }
+}
+```
+
+Main.java
+
+```java
+import fruits.*;
+
+public class Main {
+    public static void main(String[] args) {
+        RedApple red = new RedApple();
+        GreenApple green = new GreenApple();
+
+        red.taste();
+        green.taste();
+    }
+}
+```
+
+Output:
+
+```yml
+Eat RedApple until 2023-11-23
+Eat RedApple until 2023-11-23
+```
+
+### 2. Through inheritance
+
+RedApple.java
+
+```java
+// Import Apple for extend it
+import fruits.Apple;
+
+// Extend Apple because it is public and imported by the RedApple
+// Public for called by main
+public class RedApple extends Apple {
+    // Public for called by main
+    public void taste(){
+        this.BBD = "2023-11-23";
+        System.out.println("Eat RedApple until " + BBD);
+
+        // Through Inheritance
+        makeSound();
+    }
+}
+```
+
+Main.java
+
+```java
+import fruits.*;
+
+public class Main {
+    public static void main(String[] args) {
+        RedApple red = new RedApple();
+        red.taste();
+    }
+}
+```
+
+Output
+
+```yml
+Eat RedApple until 2023-11-23
+Kıt Kıt Kıt
 ```
