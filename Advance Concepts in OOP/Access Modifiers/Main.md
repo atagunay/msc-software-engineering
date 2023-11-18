@@ -347,10 +347,10 @@ package fruits;
 
 // Public for extended by the another class outside the package
 public class Apple {
-    // Protected for access by the subclass or package classes
+    // Protected for accessed by the subclass or package classes
     protected String BBD;
 
-    // Protected for access by the subclass or package classes
+    // Protected for accessed by the subclass or package classes
     protected void makeSound(){
         System.out.println("Kıt Kıt Kıt");
     }
