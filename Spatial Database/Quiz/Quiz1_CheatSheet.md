@@ -58,7 +58,7 @@ upper case characters between A and H (inclusive)
 
 ### OR
 
-* (m,n)
+* (m|n)
 
 # Date
 
