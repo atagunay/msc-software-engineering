@@ -211,7 +211,7 @@ if( playPointGame )
 }
 ```
 
-## Part 2
+## Part 2.1
 Using the code provided in the Craps01.java
 
 ```java
@@ -382,6 +382,15 @@ class UIHandler{
 
 ![Alt text](image-2.png)
 
+* Craps state should change the existing state with own code - logic.
+
+* It should not change the existing state with super classes' method.
+
+* `play()` is a action and it should decide the result of the program but it has to do it after `craps` state.
+
+* If we put this logic in super class, all states can reach that logic
+
+
 ### Identify changes to get the code to perform as it should: marks awarded for being as precise as possible
 
 * Update `play(int rolled)` method as an abstract method
@@ -401,7 +410,9 @@ void play(int rolled){
 			GameController.setState("POINT", rolled );
 		}			
   }
+```
 
+```java
 // new code
 abstract void play(int rolled);
 ```
@@ -416,7 +427,9 @@ class CrapsState extends CrapsGameState{
 		super.play(rolled);
   }
 }
+```
 
+```java
 // new code
 class CrapsState extends CrapsGameState {
     void play(int rolled) {
