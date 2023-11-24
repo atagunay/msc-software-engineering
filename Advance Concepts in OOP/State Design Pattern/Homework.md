@@ -26,20 +26,20 @@
 
 * Create a new action for `playCraps()` instead of `simulateWinOrLoose()`
 
-* `playCraps()` should call `simulateWinOrLoose()` (new action) for decide rolled number value is winning value or not
+* `playCraps()` should call `announceWinOrLoose(rolled)` (new action) for decide rolled number value is winning value or not
 
 * `playPointGame()` should call `simulateWinOrLoose()` for playing point game
 
 ```java
-static void simulateWinOrLoose(){
-    if( Math.random() > .5){
-        System.out.println("Simulated Win");
-        credits+=5;
+static void announceWinOrLoose(int rolled){
+    if( rolled == 7 || rolled == 11){
+      System.out.println("Simulated Win");
+      credits+=5;
     }else{
-        System.out.println("Simulated Loose");
-        System.out.println("Setting craps to true");
-        craps = true; //set craps boolean to true
-        System.out.println("game will now end...");
+      System.out.println("Simulated Loose");
+      System.out.println("Setting craps to true");
+      craps = true; //set craps boolean to true
+      System.out.println("game will now end...");
     }
 }
 ```
