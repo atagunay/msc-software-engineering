@@ -70,7 +70,7 @@ if( playPointGame )
     // playCraps();
 
     // new code
-        playCraps(rolled);
+    playCraps(rolled);
 }
 ```
 
@@ -92,9 +92,9 @@ if( playPointGame )
 
 ### 2.3 - Identify changes to get the code to perform as it should: marks awarded for being as precise as possible
 
-* https://github.com/atagunay/casinoCraps-StateDesignPattern/pull/3
+* https://github.com/atagunay/casinoCraps-StateDesignPattern/pull/3/files
 
-* https://github.com/atagunay/casinoCraps-StateDesignPattern/pull/4
+* https://github.com/atagunay/casinoCraps-StateDesignPattern/pull/4/files
 
 
 ## Part 3
