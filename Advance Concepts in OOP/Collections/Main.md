@@ -104,6 +104,9 @@ pop.populations.add(new Word());
 Now you can create instances of the Population class with a list of DNAs:
 
 ```java
+class Population {
+    private ArrayList<Dna> populations = new ArrayList<>();
+
     Population(String target, double mutationRate, int popMax, DnaFactory factory) {
         // Fill populations list
         for (int i = 0; i < popMax; i++) {
@@ -112,6 +115,7 @@ Now you can create instances of the Population class with a list of DNAs:
 
         // ..
     }
+}
 ```
 
 Usage for client programmers:
