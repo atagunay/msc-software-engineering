@@ -13,7 +13,15 @@ Analyze a Genetic Algorithm with respect to the different types of Java Collecti
 
 * https://www.baeldung.com/java-choose-list-set-queue-map
 
+* https://chat.openai.com/share/bf5b8c21-7b3b-45b2-8460-0c5bbda6bb92
+
 ## Java List
+
+According to the reference map, I have chosen HashMap:
+
+![image](/images/Advance%20Concepts%20in%20OOP/collections_3.png)
+
+## Usage in the project
 
 ```java
 import java.util.ArrayList;
@@ -52,7 +60,7 @@ Iteration Example
 
 #### 1. As a particular GA Class
 
-In Java, you can use a List to store elements of any class, including instances of a particular class. To achieve this, you need to specify the type of objects the List will contain by using generics. 
+In Java, you can use a List to store elements of any class, including instances of a particular class. To achieve this, you need to specify the type of objects the List will contain by using generics.
 
 * `Dna` is a GA class, and `populations` is a list that holds several Dnas
 
@@ -80,13 +88,16 @@ If you want to use a List as a member (attribute) of a particular class, you can
 
 ```java
 class Population {
-    private ArrayList<Dna> populations = new ArrayList<>();
+    public ArrayList<Dna> populations = new ArrayList<>();
 }
 ```
 
 Usage for client programmers:
 
-> List is private. Client developer can not access that list
+```java
+Population pop = new Population("hello", 0.5, 5, new WordDnaFactory());
+pop.populations.add(new Word());
+```
 
 <hr>
 
@@ -142,10 +153,9 @@ Usage for client programmers
 Population population = new Population();
 
 // Create a new dna for inserting and removing
-Dna dna = new Dna();
-
-// Print private populations list
-System.out.println(population);
+// Dna is an abstract class
+// Word is a concrete class type of Dna
+Dna dna = new Word();
 
 // Add new dna intot the list
 population.addElement(dna);
@@ -155,14 +165,15 @@ population.removeElement(dna);
 ```
 
 ## Java Map
-
-According to reference map, I have chosen HashMap because:
+According to the reference map, I have chosen HashMap because:
 
 * I need key-value pairs
 * Keys are not enum
 * I don't need iteration and travel
 
 ![image](/images/Advance%20Concepts%20in%20OOP/collections_1.png)
+
+## Usage in the project
 
 ```java
 class Population{
@@ -202,13 +213,15 @@ abstract public class Configuration {
 private final HashMap<Configuration,Double> configuration = new HashMap<>();
 ```
 
+Usage for client programmers:
+
 > Map is private. Client developer can not access that list
 
 <hr>
 
 #### 2. As a particular GA attribute (/member) of this class
 
-In this example, configuration hashmap is an attribute of the Population class
+In this example, the configuration hashmap is an attribute of the Population class
 
 ```java
 // Base class
@@ -233,12 +246,21 @@ public class MutationRate extends Configuration{
 ```java
 class Population {
     // Hashmap will hold PopMax and MutationRate
-    private final HashMap<Configuration,Double> configuration = new HashMap<>();
+   public HashMap<Configuration,Double> configuration = new HashMap<>();
 }
 ```
 Usage for client programmers:
 
-> Map is private. Client developer can not access that list
+```java
+// Create population object
+Population pop = new Population("hello", new MutationRate(), new PopMax(), new WordDnaFactory());
+
+// Create a new configuration
+MutationRate mutationRate = new mutationRate();
+
+// Update the HashMap
+pop.configuration.put(mutationRate, mutationRate.value);
+```
 
 <hr>
 
@@ -286,11 +308,162 @@ public class Population {
 Usage for client programmers:
 
 ```java
-Population population = new Population();
+Population pop = new Population("hello", new MutationRate(), new PopMax(), new WordDnaFactory())
 
 // Create a new Configuration object
 Configuration mutationRate = new MutationRate();
 
 // Add the new configuration to the HashMap
-yourInstance.addConfiguration(newConfiguration, mutationRate.value);
+population.addConfiguration(mutationRate, mutationRate.value);
+
+// Remove the configuration from the HashMap
+population.removeConfiguration(mutationRate);
+```
+
+## Java Set
+According to the reference map, I have chosen HashMap because:
+
+* I don't need to key-value pairs
+* I don't travel set according to the insertion order
+* I don't use "first in, first out" or "last in, first out."
+* There are not any high-priority elements
+* There are no duplicate elements
+* Values no enum values
+
+![image](/images/Advance%20Concepts%20in%20OOP/collections_2.png)
+
+## Usage in the project
+
+```java
+class Population {
+    // Set
+    private final Set<Configuration> configurations = new HashSet<>();
+
+    // Cnstructor
+    Population(String target, MutationRate mutationRate, PopMax popMax, DnaFactory factory) {
+        configurations.add(mutationRate);
+        configurations.add(popMax);
+
+        // ..
+    }
+}
+```
+
+### Addition Use Cases
+
+#### GPT Conservation
+
+* https://chat.openai.com/share/e8c995a6-f6f4-4d35-aa22-d3a1c44630fb
+
+<hr>
+
+#### 1. As a particular GA Class
+
+* This set holds the elements type of the configuration class
+
+```java
+private final Set<Configuration> configurations = new HashSet<>();
+```
+Usage for client programmers:
+
+> Map is private. Client developer can not access that list
+
+<hr>
+
+#### 2. As a particular GA attribute (/member) of this class
+
+```java
+class Population {
+    // Set is used by the Population class
+    public Set<Configuration> configurations = new HashSet<>();
+}
+```
+
+Usage for client programmers:
+
+```java
+Population pop = new Population("hello", new MutationRate(), new PopMax(), new WordDnaFactory());
+pop.configurations.add(new MutationRate());
+pop.configurations.add(new PopMax());
+```
+
+<hr>
+
+#### 3. In the constructor as an internal for a class
+
+```java
+// Base class
+abstract public class Configuration {
+}
+```
+
+```java
+// Derived class
+public class PopMax extends Configuration {
+    public double value = 5;
+}
+```
+
+```java
+// Derived class
+public class MutationRate extends Configuration{
+    public double value = 0.15;
+}
+```
+
+```java
+class Population {
+    // Set
+    private final Set<Configuration> configurations = new HashSet<>();
+
+    // Constructor
+    Population(String target, MutationRate mutationRate, PopMax popMax, DnaFactory factory) {
+
+        // Set used inside the constructor
+        configurations.add(mutationRate);
+        configurations.add(popMax);
+
+        // ..
+    }
+}
+```
+
+Usage for client programmers:
+
+```java
+Population pop = new Population("hello", new MutationRate(), new PopMax(), new WordDnaFactory());
+```
+
+<hr>
+
+#### 4. A method with internal showing how to add/remove (for the chosen attribute)
+
+```java
+class Population {
+    private final Set<Configuration> configurations = new HashSet<>();
+
+    // Method to add a Configuration to the set
+    public void addConfiguration(Configuration config) {
+        configurations.add(config);
+    }
+
+    // Method to remove a Configuration from the set
+    public void removeConfiguration(Configuration config) {
+        configurations.remove(config);
+    }
+}
+```
+
+Usage for client programmers:
+
+```java
+Population pop = new Population("hello", new MutationRate(), new PopMax(), new WordDnaFactory())
+
+MutationRate mutationRate = new MutationRate()
+
+// Add the new configuration to the HashMap
+population.addConfiguration(mutationRate);
+
+// Remove the configuration from the HashMap
+population.removeConfiguration(mutationRate);
 ```
