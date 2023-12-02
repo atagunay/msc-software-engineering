@@ -52,6 +52,8 @@ Iteration Example
 
 * https://chat.openai.com/share/beda75cf-eafa-48eb-89ea-684dc2cd8991
 
+<hr>
+
 #### 1. As a particular GA Class
 
 In Java, you can use a List to store elements of any class, including instances of a particular class. To achieve this, you need to specify the type of objects the List will contain by using generics. 
@@ -68,6 +70,8 @@ public abstract class Dna {
 private ArrayList<Dna> populations = new ArrayList<>();
 ```
 
+<hr>
+
 #### 2. As a particular GA attribute (/member) of this class
 
 If you want to use a List as a member (attribute) of a particular class, you can declare it as an instance variable within the class.
@@ -77,6 +81,8 @@ class Population {
     private ArrayList<Dna> populations = new ArrayList<>();
 }
 ```
+
+<hr>
 
 #### 3. In the constructor as an internal for a class
 
@@ -92,6 +98,8 @@ Now you can create instances of the Population class with a list of DNAs:
         // ..
     }
 ```
+
+<hr>
 
 #### 4. A method with internal showing how to add/remove (for the chosen attribute)
 ```java
