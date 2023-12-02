@@ -17,15 +17,13 @@ Analyze a Genetic Algorithm with respect to the different types of Java Collecti
 
 ## Java List
 
-According to the reference map, I have chosen HashMap:
+According to the reference map, I have chosen ArrayList:
 
 ![image](/images/Advance%20Concepts%20in%20OOP/collections_3.png)
 
 ## Usage in the project
 
 ```java
-import java.util.ArrayList;
-
 class Population {
 
     // Array to hold the current population
