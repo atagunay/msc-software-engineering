@@ -14,10 +14,6 @@ Analyze a Genetic Algorithm with respect to the different types of Java Collecti
 * https://www.baeldung.com/java-choose-list-set-queue-map
 
 ## Java List
-According to the reference map, I have chosen the List type because 
-* I don't need to key-value pairs,
-* There might be duplicate data in the "populations" list
-* And I use that list for iteration 
 
 ```java
 import java.util.ArrayList;
@@ -67,7 +63,9 @@ public abstract class Dna {
 ```
 
 ```java
-private ArrayList<Dna> populations = new ArrayList<>();
+class Population{
+    private ArrayList<Dna> populations = new ArrayList<>();
+}
 ```
 
 Usage for client programmers:
@@ -156,3 +154,143 @@ population.addElement(dna);
 population.removeElement(dna);
 ```
 
+## Java Map
+
+According to reference map, I have chosen HashMap because:
+
+* I need key-value pairs
+* Keys are not enum
+* I don't need iteration and travel
+
+![image](/images/Advance%20Concepts%20in%20OOP/collections_1.png)
+
+```java
+class Population{
+    // Init hashmap
+    private final HashMap<String,Double> configuration = new HashMap<>();
+
+    // Constructor
+    Population(String target, double mutationRate, double popMax, DnaFactory factory) {
+        // ..
+        configuration.put("MutationRate", mutationRate);
+        configuration.put("PopMax", popMax);
+    }
+}
+```
+
+### Addition Use Cases
+
+#### GPT Conservation
+
+* https://chat.openai.com/share/500f41d1-266f-4dab-b481-e4188ee487ff
+
+<hr>
+
+#### 1. As a particular GA Class
+
+* A configuration hashmap will hold some configuration values as key-value pairs
+
+* Keys of the hashmap is a particular class `configuration.java`
+
+```java
+// Base class
+abstract public class Configuration {
+}
+```
+
+```java
+private final HashMap<Configuration,Double> configuration = new HashMap<>();
+```
+
+> Map is private. Client developer can not access that list
+
+<hr>
+
+#### 2. As a particular GA attribute (/member) of this class
+
+In this example, configuration hashmap is an attribute of the Population class
+
+```java
+// Base class
+abstract public class Configuration {
+}
+```
+
+```java
+// Derived class
+public class PopMax extends Configuration {
+    public double value = 5;
+}
+```
+
+```java
+// Derived class
+public class MutationRate extends Configuration{
+    public double value = 0.15;
+}
+```
+
+```java
+class Population {
+    // Hashmap will hold PopMax and MutationRate
+    private final HashMap<Configuration,Double> configuration = new HashMap<>();
+}
+```
+Usage for client programmers:
+
+> Map is private. Client developer can not access that list
+
+<hr>
+
+#### 3. In the constructor as an internal for a class
+```java
+class Population {
+    // Hashmap will hold PopMax and MutationRate
+    private final HashMap<Configuration,Double> configuration = new HashMap<>();
+
+      // Constructor  
+      Population(String target, MutationRate mutationRate, PopMax popMax, DnaFactory factory) {
+        configuration.put(mutationRate, mutationRate.value);
+        configuration.put(popMax, popMax.value);
+
+        // ..
+    }
+}
+```
+
+Usage for client programmers:
+
+```java
+Population pop = new Population("hello", new MutationRate(), new PopMax(), new WordDnaFactory());
+```
+
+<hr>
+
+#### 4. A method with internal showing how to add/remove (for the chosen attribute)
+```java
+public class Population {
+    private final HashMap<Configuration, Double> configuration = new HashMap<>();
+
+    // Method to add a new entry to the HashMap
+    public void addConfiguration(Configuration key, Double value) {
+        configuration.put(key, value);
+    }
+
+    // Method to remove an entry from the HashMap
+    public void removeConfiguration(Configuration key) {
+        configuration.remove(key);
+    }
+}
+```
+
+Usage for client programmers:
+
+```java
+Population population = new Population();
+
+// Create a new Configuration object
+Configuration mutationRate = new MutationRate();
+
+// Add the new configuration to the HashMap
+yourInstance.addConfiguration(newConfiguration, mutationRate.value);
+```
