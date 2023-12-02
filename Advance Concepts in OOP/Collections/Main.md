@@ -70,6 +70,10 @@ public abstract class Dna {
 private ArrayList<Dna> populations = new ArrayList<>();
 ```
 
+Usage for client programmers:
+
+> List is private. Client developer can not access that list
+
 <hr>
 
 #### 2. As a particular GA attribute (/member) of this class
@@ -81,6 +85,10 @@ class Population {
     private ArrayList<Dna> populations = new ArrayList<>();
 }
 ```
+
+Usage for client programmers:
+
+> List is private. Client developer can not access that list
 
 <hr>
 
@@ -97,6 +105,12 @@ Now you can create instances of the Population class with a list of DNAs:
 
         // ..
     }
+```
+
+Usage for client programmers:
+
+```java
+Population pop = new Population("hello", 0.5, 5, new WordDnaFactory());
 ```
 
 <hr>
