@@ -85,3 +85,35 @@ Text can be:
 * timezone
 * timezone_hour
 * timezone_minute 
+
+# Spatial
+
+### <->
+returns distance between two geom
+
+### &&
+* returns true if geams are instersect
+* The && operator checks whether the bounding boxes of two geometries overlap. If the bounding boxes overlap, it does not necessarily mean that the geometries themselves intersect.
+
+### st_intersects
+* The ST_Intersects function checks whether two geometries have any spatial intersection. It's a more rigorous condition compared to &&.
+
+### st_contains
+* returns TRUE if geometry A contains geometry B. A contains B if and only if all points of B lie inside A
+
+### st_npoints(st_transform(wrgeom, 32630))
+* return numbers of points
+
+### st_length(st_transform(wrgeom, 32630))
+* return length
+
+### self join
+* from wfroads as a, wfroads as b  where (a.wkid != b.wkid and a.wkid < b wkid)
+* note!!!: add where conditions for a and b
+
+### st_centroid(geom)
+* return center point of the geom
+
+### st_envelope(geom)
+* return bounding boxes of the geom
+
