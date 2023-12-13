@@ -1,5 +1,6 @@
 # Generics
 
+
 ## Before The Start
 
 Resources:
@@ -16,7 +17,7 @@ Resources:
 * [<? extends Number> vs <T extends Number - GPT Conversation](https://chat.openai.com/share/6176140f-6ee9-4bae-ba13-c3c4bd349c1c)
 
 
-### General Informations
+### Introduction to Generics
 
 1. Generics was added in Java 5 to provide compile-time type checking and removing risk of ClassCastException that was common while working with collection classes
 
@@ -115,9 +116,9 @@ public static void printListWildCard(List<?> list) {
 }
 ```
 
-* `printListObject(li);` will not compile, and we’ll get this error: "The method printListObject(List<Object>) is not applicable for the arguments (List<Integer>)"
+`printListObject(li);` will not compile, and we’ll get this error: "The method printListObject(List<Object>) is not applicable for the arguments (List<Integer>)"
 
-* `printListWildCard(li)` will compile and will output: 1 2 3 to the console.
+`printListWildCard(li)` will compile and will output: 1 2 3 to the console.
 
 if we change the method signature for printListWildCard to:
 
@@ -125,5 +126,181 @@ if we change the method signature for printListWildCard to:
 public static void printListWildCard(List<? extends Object> list)
 ```
 
+#### Similarities
 It would function in the same way as printListWildCard(List<?> list) did. This is due to the fact that Object is a supertype of all Java objects, and basically everything extends Object. So, a List of Integers gets processed as well.
+
+#### Differences
+* The reason for declaring a T is so that you can refer to it again
+
+* `T` for the method itself, providing more flexibility and allowing both reading and writing to the Class with the specified type.
+
+
+## TASK01
+
+Suppose you have pre-Java5.0 code such as:
+
+```java
+class Box {
+    Object o;
+
+    Object get() {
+        return o;
+    }
+}
+```
+
+### Question
+<hr>
+
+Outline two advantages to a client programmer if converting
+the code to use generics. Give brief demo code (compilable).
+
+### Answer
+<hr>
+
+Resources:
+* https://dzone.com/articles/how-do-generic-subtypes-work
+
+
+
+#### <b>Pain Points</b>
+
+
+In existing code, if we were to do: 
+
+```java
+Box box = new Box();
+box.o = 10;
+```
+
+The supplied `Integer` is no longer treated as its actual type, but rather, as an `Object`. This means:
+
+1. We must <u>cast</u> the `Integer` when retrieved
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        int result;
+
+        // Initialize
+        Box box = new Box();
+
+        // Assign a integer
+        box.o = 10;
+
+        // We have to use type casting !!!
+        result = (Integer) box.get();
+
+        // Print the result
+        System.out.println(result);
+    }
+}
+```
+
+2. Code that is outside of our control that uses this `Box` class may not have enough information to know what type to cast the retrieved element to.
+
+Example:
+
+ > if we add another element, but this time of type `Double`. If a consumer of our `Box` class is expecting a `Integer` object, performing a cast to `Integer` on the retrieved element will cause ClassCastException at runtime.
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        String result;
+
+        // Initialize
+        Box box = new Box();
+
+        // Assign a string
+        box.o = 10;
+
+        // Wrong type casting !!!
+        // Runtime error !!!
+        result = (String) box.get();
+
+        // Print the result
+        System.out.println(result);
+    }
+}
+```
+
+
+#### <b>1. Type Cast</b>
+
+When we apply generics to `Box` class, we don't have to use type casting.
+
+Box.java
+
+```java
+public class Box<T> {
+    T o;
+
+    T get() {
+        return o;
+    }
+}
+```
+
+Main.java
+```java
+public class Main {
+    public static void main(String[] args) {
+        Integer result;
+
+        // Initialize
+        Box<Integer> box = new Box<>();
+
+        // Assign a string
+        box.o = 10;
+
+        // We don't need to add type casting
+        result = box.get();
+
+        // Print the result
+        System.out.println(result);
+    }
+}
+```
+
+
+#### <b>2. Type Safety</b>
+
+When we apply generics to `Box` class, even if select wrong receiver type, we will come across a compile time error instead of runtime error
+
+Box.java (same)
+
+```java
+public class Box<T> {
+    T o;
+
+    T get() {
+        return o;
+    }
+}
+```
+
+Main.java
+```java
+public class Main {
+    public static void main(String[] args) {
+        // Wrong receiver type !!!
+        String result;
+
+        // Initialize
+        Box<Integer> box = new Box<>();
+
+        // Assign a string
+        box.o = 10;
+
+        // Compile time error
+        // java: incompatible types: java.lang.Integer cannot be converted to java.lang.String
+        result = box.get();
+
+        // Print the result
+        System.out.println(result);
+    }
+}
+```
+
+
 
