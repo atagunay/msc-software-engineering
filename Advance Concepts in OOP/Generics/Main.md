@@ -185,11 +185,11 @@ public class Main {
         // Initialize
         Box box = new Box();
 
-        // Assign a integer
+        // Assign an integer
         box.o = 10;
 
         // We have to use type casting !!!
-        result = (Integer) box.get();
+        result = (int) box.get();
 
         // Print the result
         System.out.println(result);
@@ -211,7 +211,7 @@ public class Main {
         // Initialize
         Box box = new Box();
 
-        // Assign a string
+        // Assign a double
         box.o = 10.54;
 
         // Wrong type casting !!!
@@ -250,7 +250,7 @@ public class Main {
         // Initialize
         Box<Integer> box = new Box<>();
 
-        // Assign a string
+        // Assign an integer
         box.o = 10;
 
         // We don't need to add type casting
@@ -289,7 +289,7 @@ public class Main {
         // Initialize
         Box<Integer> box = new Box<>();
 
-        // Assign a string
+        // Assign an integer
         box.o = 10;
 
         // Compile time error
