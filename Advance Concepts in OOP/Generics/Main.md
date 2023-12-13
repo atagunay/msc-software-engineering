@@ -302,5 +302,56 @@ public class Main {
 }
 ```
 
+#### <b>Examples With Different Code</b>
 
+Resources:
 
+* https://www.baeldung.com/java-generics
+
+Before the Generics
+
+```java
+import java.util.LinkedList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        // Initialize linked list
+        List list = new LinkedList();
+        
+        // Add an integer
+        list.add(new Integer(2));
+        
+        // We have to use type casting
+        // And it is not type safe
+        Integer i = (Integer) list.iterator().next();
+        
+        // print the element
+        System.out.println(i);
+    }
+}
+```
+
+After the generics
+
+```java
+import java.util.LinkedList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        // Initialize linked list
+        List<Integer> list = new LinkedList<Integer>();
+
+        // Add an integer
+        list.add(new Integer(2));
+
+        // Type safe and
+        // We don't have to use type casting
+        Integer i = list.iterator().next();
+
+        // print the element
+        System.out.println(i);
+    }
+}
+```
