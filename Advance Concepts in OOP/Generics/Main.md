@@ -206,17 +206,17 @@ Example:
 ```java
 public class Main {
     public static void main(String[] args) {
-        String result;
+        int result;
 
         // Initialize
         Box box = new Box();
 
         // Assign a string
-        box.o = 10;
+        box.o = 10.54;
 
         // Wrong type casting !!!
         // Runtime error !!!
-        result = (String) box.get();
+        result = (int) box.get();
 
         // Print the result
         System.out.println(result);
