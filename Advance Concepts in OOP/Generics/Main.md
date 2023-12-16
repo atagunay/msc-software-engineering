@@ -364,7 +364,7 @@ public class Main {
 
 * Write a generic method definition to allow only this
 
-### Answer
+### Answer (With different code examples)
 
 User.java
 
