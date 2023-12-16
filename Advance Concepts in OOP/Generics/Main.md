@@ -150,7 +150,6 @@ class Box {
 ```
 
 ### Question
-<hr>
 
 Outline two advantages to a client programmer if converting
 the code to use generics. Give brief demo code (compilable).
@@ -385,7 +384,7 @@ Briefly explain the differences in a summary explanation.
 
 ### Answer
 
-> NOTE: Implemented code was my idea. I didn't take that code from anywhere
+> NOTE: These implemented codes was my idea. I didn't take that code from anywhere
 
 1. `boxTest1(Box<Num> boxOfNum){...}`
 
@@ -654,3 +653,42 @@ Main.java
 * what restrictions are imposed inside the method.
 
     * Since the wildcard is unbounded (?), the method is allowed to read from the user parameter, but it cannot modify its contents.
+
+<hr>
+
+#### Summaries
+
+1. Explicit knowledge about the type
+    * It works with only the specific class
+    * It can modify the parameter
+
+```java
+boxTest1(Box<Num> boxOfNum){...}
+```
+
+2. Upper-bounded wildcard 
+
+    * It can accept the class that mentioned in parameters or a class of any type that is a subtype of mentioned class
+    * It allows read-only access to elements
+
+```java
+boxTest2(Box<? extends Num> boxOfNum{...}
+```
+
+3. Generic method 
+
+     * It can accept the class that mentioned in parameters or a class of any type that is a subtype of mentioned class
+    * It allows read and write access to elements
+
+```java
+<T extends Num> ... boxTest3(Box<T> boxOfNum) 
+```
+
+4. Unbounded wildcard 
+
+    * It can accept any class
+    * It allows read-only access to elements
+
+```java
+boxTest4(Box<?> boxOfX)
+```
