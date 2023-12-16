@@ -498,14 +498,6 @@ public class Main {
 }
 ```
 
-* what can be passed in?
-
-    * Only the specified class between the "<>" can be passed
-
-* what restrictions are imposed inside the method.
-
-    * The method may impose restrictions related to the methods or properties available on the User type.
-
 <hr>
 
  2. `boxTest2(Box<? extends Num> boxOfNum{...}`
@@ -565,16 +557,6 @@ Main.java
     }
 }
  ```
-
- * what can be passed in?
-
-    * Only the specified class between the "<>" and some classes that extend specified class can be passed in
-
-* what restrictions are imposed inside the method.
-
-    * Since the wildcard is upper-bounded (? extends User), the method is allowed to read from the user parameter, but it cannot modify its contents.
-
-    * We can call only super class' methods because super types have no idea about the methods of the sub classes
 
 <hr>
 
@@ -636,14 +618,6 @@ Main.java
 }
  ```
 
- * what can be passed in?
-
-    * Only the specified class between the "<>" and some classes that extend specified class can be passed in
-
-* what restrictions are imposed inside the method.
-
-    * We can call only super class' methods because super types have no idea about the methods of the sub classes
-
 <hr>
 
 4. `boxTest4(Box<?> boxOfX)`
@@ -704,52 +678,41 @@ Main.java
 }
  ```
 
-  * what can be passed in?
-
-    * Any class can be passed in
-
-* what restrictions are imposed inside the method.
-
-    * Since the wildcard is unbounded (?), the method is allowed to read from the user parameter, but it cannot modify its contents.
-
 <hr>
 
 #### Summaries
-
-1. Explicit knowledge about the type
-    * It works with only the specific class
-    * It can modify the parameter
 
 ```java
 boxTest1(Box<Num> boxOfNum){...}
 ```
 
-2. Upper-bounded wildcard 
+* <b>What can be passed in:</b> Any Box object containing an instance of the Num class or its subclasses.
 
-    * It can accept the class that mentioned in parameters or a class of any type that is a subtype of mentioned class
-    * It allows read-only access to elements
+* <b>Restrictions inside the method:</b> You can use methods and properties of the Num class on the object contained in the Box.
+
 
 ```java
 boxTest2(Box<? extends Num> boxOfNum{...}
 ```
 
-3. Generic method 
+* <b>What can be passed in:</b> Any Box object containing an instance of the Num class or its subclasses. It allows covariance, meaning you can pass a Box of a more specific type (subtype of Num).
 
-     * It can accept the class that mentioned in parameters or a class of any type that is a subtype of mentioned class
-    * It allows read and write access to elements
+* <b>Restrictions inside the method:</b> You can use methods and properties of the Num class on the object contained in the Box, but you won't be able to modify the content of the Box.
 
 ```java
 <T extends Num> ... boxTest3(Box<T> boxOfNum) 
 ```
+* <b>What can be passed in:</b> Any Box object containing an instance of a type T that extends the Num class.
 
-4. Unbounded wildcard 
-
-    * It can accept any class
-    * It allows read-only access to elements
+* <b>Restrictions inside the method:</b> You can use methods and properties of the Num class on the object contained in the Box. The type T is known to be a subtype of Num, so you can use T as if it were a Num. You won't be able to modify the content of the Box in a way that is not type-safe.
 
 ```java
 boxTest4(Box<?> boxOfX)
 ```
+
+* <b>What can be passed in:</b> Any Box object containing an instance of any type (unbounded wildcard).
+
+* <b>Restrictions inside the method:</b> You can't make any assumptions about the type of the object contained in the Box. You can use methods and properties of Object (common ancestor of all types), but you won't be able to call methods specific to the type of the object inside the Box. You won't be able to modify the content of the Box in a way that is not type-safe.
 
 ## TASK04
 
@@ -857,6 +820,24 @@ List<? extends Number> foo3 = new ArrayList<Integer>();
 
 // Double extends Number
 List<? extends Number> foo3 = new ArrayList<Double>();  
+```
+
+#### Lower Bounded Wildcards (<? super Integer>)
+<hr>
+
+A lower bounded wildcard restricts the unknown type to be a specific type or a super type of that type.
+
+The wildcard declaration of List<? super Integer> foo3 means that any of these are legal assignments:
+
+```java
+// Integer is a "superclass" of Integer (in this context)
+List<? super Integer> foo3 = new ArrayList<Integer>();  
+
+// Number is a superclass of Integer
+List<? super Integer> foo3 = new ArrayList<Number>();  
+ 
+ // Object is a superclass of Integer 
+List<? super Integer> foo3 = new ArrayList<Object>();  
 ```
 
 #### Covariance (Out Parameter)
