@@ -355,3 +355,302 @@ public class Main {
     }
 }
 ```
+
+## TASK03
+
+### Question
+
+Write complete definitions of all methods above
+and write client-code to demo: 
+1. for each : what can be passed in?
+2. for each : what restrictions are imposed inside the method.
+
+```java
+boxTest1(Box<Num> boxOfNum){...}
+```
+
+```java
+boxTest2(Box<? extends Num> boxOfNum{...}
+```
+```java
+<T extends Num> ... boxTest3(Box<T> boxOfNum) 
+```
+
+```java
+boxTest4(Box<?> boxOfX)
+```
+Briefly explain the differences in a summary explanation.
+
+<hr>
+
+### Answer
+
+> NOTE: Implemented code was my idea. I didn't take that code from anywhere
+
+1. `boxTest1(Box<Num> boxOfNum){...}`
+
+User.java
+
+```java
+// Entity class
+public class User {
+}
+```
+
+Entity.java
+
+```java
+// Generic entity class
+public class Entity<T> {
+    T entity;
+
+    public Entity(T entity){
+        this.entity = entity;
+    }
+
+    public String getEntity(){
+        return entity.getClass().getName();
+    }
+}
+
+```
+
+CrudService.java
+
+```java
+// A helper service to do create-read-update-delete
+public class CrudService {
+    public void create(Entity<User> user){
+        System.out.println("A record created: " + user.getEntity());
+    }
+}
+
+```
+
+Main.java
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        // Create crud service to perform create-read-update-delete operations
+        CrudService crudService = new CrudService();
+
+        // Create a new user
+        crudService.create(new Entity<>(new User()));
+    }
+}
+```
+
+* what can be passed in?
+
+    * Only the specified class between the "<>" can be passed
+
+* what restrictions are imposed inside the method.
+
+    * The method may impose restrictions related to the methods or properties available on the User type.
+
+<hr>
+
+ 2. `boxTest2(Box<? extends Num> boxOfNum{...}`
+
+User.java
+
+ ```java
+ // User entity
+public class User {
+}
+ ```
+
+ Student.java
+
+ ```java
+ public class Student extends User{
+}
+ ```
+
+Entity.java
+
+ ```java
+ // Generic entity class
+public class Entity<T> {
+    T entity;
+
+    public Entity(T entity){
+        this.entity = entity;
+    }
+
+    public String getEntity(){
+        return entity.getClass().getName();
+    }
+}
+ ```
+
+CrudService.java
+
+ ```java
+ public class CrudService {
+    public void create(Entity<? extends User> user){
+        System.out.println("A record created: " + user.getEntity());
+    }
+}
+ ```
+
+Main.java
+
+ ```java
+ public class Main {
+    public static void main(String[] args) {
+        // Create crud service to perform create-read-update-delete operations
+        CrudService crudService = new CrudService();
+        
+        // Create a new student
+        crudService.create(new Entity<>(new Student()));
+    }
+}
+ ```
+
+ * what can be passed in?
+
+    * Only the specified class between the "<>" and some classes that extend specified class can be passed in
+
+* what restrictions are imposed inside the method.
+
+    * Since the wildcard is upper-bounded (? extends User), the method is allowed to read from the user parameter, but it cannot modify its contents.
+
+    * We can call only super class' methods because super types have no idea about the methods of the sub classes
+
+<hr>
+
+3. `<T extends Num> ... boxTest3(Box<T> boxOfNum)`
+
+User.java
+
+ ```java
+ // User entity
+public class User {
+}
+ ```
+
+ Student.java
+
+ ```java
+ public class Student extends User{
+}
+ ```
+
+Entity.java
+
+ ```java
+ // Generic entity class
+public class Entity<T> {
+    T entity;
+
+    public Entity(T entity){
+        this.entity = entity;
+    }
+
+    public String getEntity(){
+        return entity.getClass().getName();
+    }
+}
+ ```
+
+CrudService.java
+
+ ```java
+ public class CrudService {
+    public <T extends User> void create(Entity<T> user){
+        System.out.println("A record created: " + user.getEntity());
+    }
+}
+ ```
+
+Main.java
+
+ ```java
+ public class Main {
+    public static void main(String[] args) {
+        // Create crud service to perform create-read-update-delete operations
+        CrudService crudService = new CrudService();
+        
+        // Create a new student
+        crudService.create(new Entity<>(new Student()));
+    }
+}
+ ```
+
+ * what can be passed in?
+
+    * Only the specified class between the "<>" and some classes that extend specified class can be passed in
+
+* what restrictions are imposed inside the method.
+
+    * We can call only super class' methods because super types have no idea about the methods of the sub classes
+
+<hr>
+
+4. `boxTest4(Box<?> boxOfX)`
+
+User.java
+
+ ```java
+ // User entity
+public class User {
+}
+ ```
+
+ Student.java
+
+ ```java
+ public class Student extends User{
+}
+ ```
+
+Entity.java
+
+ ```java
+ // Generic entity class
+public class Entity<T> {
+    T entity;
+
+    public Entity(T entity){
+        this.entity = entity;
+    }
+
+    public String getEntity(){
+        return entity.getClass().getName();
+    }
+}
+ ```
+
+CrudService.java
+
+ ```java
+public class CrudService {
+    public void create(Entity<?> user){
+        System.out.println("A record created: " + user.getEntity());
+    }
+}
+ ```
+
+Main.java
+
+ ```java
+ public class Main {
+    public static void main(String[] args) {
+        // Create crud service to perform create-read-update-delete operations
+        CrudService crudService = new CrudService();
+        
+        // Create a new student
+        crudService.create(new Entity<>(new Student()));
+    }
+}
+ ```
+
+  * what can be passed in?
+
+    * Any class can be passed in
+
+* what restrictions are imposed inside the method.
+
+    * Since the wildcard is unbounded (?), the method is allowed to read from the user parameter, but it cannot modify its contents.
