@@ -23,6 +23,11 @@ Resources:
 
 2.  If we don’t provide the type at the time of creation, the compiler will produce a warning that `GenericsType is a raw type. References to generic type GenericsType<T> should be parameterized`. 
 
+```java
+// Warning: GenericsType is a raw type.
+GenericsType rawType = new GenericsType(); 
+```
+
 > Tip: We can use @SuppressWarnings("rawtypes") annotation to suppress the compiler warning
 
 ### Naming Convention
