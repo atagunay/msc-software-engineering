@@ -819,3 +819,72 @@ Resources:
 
 Suppose we want to add Integers to a list of integers in a method, we can keep the argument type as List<Integer> but it will be tied up with Integers whereas List<Number> and List<Object> can also hold integers, so we can use a lower bound wildcard to achieve this. We use generics wildcard (?) with super keyword and lower bound class to achieve this. We can pass lower bound or any supertype of lower bound as an argument, in this case, java compiler allows to add lower bound object types to the list.
 
+## TASK05
+
+### Question
+
+Briefly summarise the Oracle Java Tutorial guidelines for using wild-cards. State and explain 'In' and 'Out' type parameters and give examples.
+
+### Answer
+
+Resources:
+
+* [Oracle Documentation](https://docs.oracle.com/javase/tutorial/java/generics/wildcards.html)
+
+* [GPT-Conversation](https://chat.openai.com/share/6c8a19b3-e20a-42b4-af62-805ad54ab939)
+
+* [Difference between <? super T> and <? extends T> in Java](https://stackoverflow.com/questions/4343202/difference-between-super-t-and-extends-t-in-java)
+
+
+#### Wildcards(?)
+<hr>
+
+* In generic code, the question mark (?), called the wildcard, represents an unknown type.
+
+#### Upper Bounded Wildcards (<? extends Foo>)
+<hr>
+
+* To write the method that works on lists of Number and the subtypes of Number, such as Integer, Double, and Float, you would specify List<? extends Number>. 
+
+* The wildcard declaration of List<? extends Number> foo3 means that any of these are legal assignments
+
+```java
+// Number "extends" Number (in this context)
+List<? extends Number> foo3 = new ArrayList<Number>(); 
+
+// Integer extends Number
+List<? extends Number> foo3 = new ArrayList<Integer>(); 
+
+// Double extends Number
+List<? extends Number> foo3 = new ArrayList<Double>();  
+```
+
+#### Covariance (Out Parameter)
+<hr>
+
+* Covariance is the ability to use a more specific type when a more general type is expected. In Java, covariance is often associated with the "Out" parameter. 
+
+* When you declare a type parameter as covariant (using ? extends T), it means that the parameter can produce values of type T or its subtypes, but it cannot consume values.
+
+```java
+List<? extends Number> numbers = new ArrayList<>();
+Number number = numbers.get(0); // OK, can get values
+// numbers.add(new Integer(10)); // Error, can't add values
+```
+
+* This is because the actual type of the list could be, for example, `List<Integer>` or `List<Double>`, and allowing addition of values could lead to type inconsistencies.
+
+#### Contravariance (In Parameter)
+<hr>
+
+* Contravariance is the ability to use a more general type when a more specific type is expected. In Java, contravariance is often associated with the "In" parameter. 
+
+* When you declare a type parameter as contravariant (using ? super T), it means that the parameter can consume values of type T or its supertypes, but it cannot produce values.
+
+```java
+List<? super Integer> integers = new ArrayList<>();
+integers.add(new Integer(10)); // OK, can add values
+// Integer number = integers.get(0); // Error, can't get values
+```
+
+* In this example, the integers list is declared to contain elements of a type that is a supertype of Integer. You can add elements of type Integer or any subtype of Integer, but you cannot safely retrieve elements from the list as they could be of a more general type.
