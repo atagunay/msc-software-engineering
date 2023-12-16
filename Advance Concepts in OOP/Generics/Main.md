@@ -355,6 +355,64 @@ public class Main {
 }
 ```
 
+## TASK02
+
+### Question
+
+* Continuing from Box code above, suppose you have 
+
+    * `class Num{...}`, 
+    * `class SmallNum extends Num{}`
+
+* You want to have a class Test with a method `boxTest(...)` to accept a Box that holds either a `Num` or `SmallNum`
+
+* Write a generic method definition to allow only this
+
+### Answer
+
+User.java
+
+```java
+// User entity
+public class User {
+}
+```
+
+Student.java
+
+```java
+public class Student extends User{
+}
+```
+
+CrudService.java
+
+```java
+public class CrudService {
+    // Accept user or classes that extend the user
+    public  <T extends User> void create(Entity<T> user){
+        System.out.println("A record created: " + user.getEntity());
+    }
+}
+```
+
+Main.java
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        // Create crud service to perform create-read-update-delete operations
+        CrudService crudService = new CrudService();
+
+        // Create a new user
+        crudService.create(new Entity<>(new User()));
+
+        // Create a new student (extends user)
+        crudService.create(new Entity<>(new Student()));
+    }
+}
+```
+
 ## TASK03
 
 ### Question
