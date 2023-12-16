@@ -750,3 +750,64 @@ boxTest2(Box<? extends Num> boxOfNum{...}
 ```java
 boxTest4(Box<?> boxOfX)
 ```
+
+## TASK04
+
+### Question
+
+Give an example of a generic method with an lower-bounded Type parameter AND give an example that shows a situation where  this might be useful.
+
+### Answer
+
+CrudService.java
+
+```java
+import java.util.List;
+
+public class CrudService {
+    // Acepts Integer class or super classess of Integer
+    public void userCreate(List<? super Integer> list){
+        for (Object item : list){
+            System.out.println("A record created: " + item.toString() + " times");
+        }
+    }
+}
+```
+
+Main.java
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        // Create crud service to perform create-read-update-delete operations
+        CrudService crudService = new CrudService();
+
+        // Create different type of lists
+        List<Integer> list_1 = new ArrayList<>();
+        List<Object> list_2 = new ArrayList<>();
+        List<Number> list_3 = new ArrayList<>();
+
+        // Add creation times into the lists
+        list_1.add(23);
+        list_2.add(10);
+        list_3.add(5);
+
+        // Call crud service for create user
+        crudService.userCreate(list_1);
+        crudService.userCreate(list_2);
+        crudService.userCreate(list_3);
+    }
+}
+```
+
+Output
+
+```yaml
+A record created: 23 times
+A record created: 10 times
+A record created: 5 times
+```
+
