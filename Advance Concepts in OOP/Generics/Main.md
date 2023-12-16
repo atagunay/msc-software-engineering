@@ -131,15 +131,6 @@ if we change the method signature for printListWildCard to:
 public static void printListWildCard(List<? extends Object> list)
 ```
 
-#### Similarities
-It would function in the same way as printListWildCard(List<?> list) did. This is due to the fact that Object is a supertype of all Java objects, and basically everything extends Object. So, a List of Integers gets processed as well.
-
-#### Differences
-* The reason for declaring a T is so that you can refer to it again
-
-* `T` for the method itself, providing more flexibility and allowing both reading and writing to the Class with the specified type.
-
-
 ## TASK01
 
 Suppose you have pre-Java5.0 code such as:
