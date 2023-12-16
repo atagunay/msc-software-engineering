@@ -77,7 +77,7 @@ public <T extends Number> List<T> fromArrayToList(T[] a) {
 ### Wildcards With Generics (?)
 > We know that Object is the supertype of all Java classes. However, a collection of Object is not the supertype of any collection.
 
-For example, a List<Object> is not the supertype of List<String>, and assigning a variable of type List<Object> to a variable of type List<String> will cause a compiler error. 
+For example, a `List<Object>` is not the supertype of `List<String>`, and assigning a variable of type `List<Object>` to a variable of type `List<String>` will cause a compiler error. 
 
 ```java
 public static void paintAllBuildings(List<Building> buildings) {
