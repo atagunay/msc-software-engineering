@@ -157,3 +157,10 @@ int main() {
    
 }
 ```
+
+Output:
+```yaml
+pnumber points: 0x7fffe14f8dfc
+value of the ram slot that pointed by pnumber: 10
+address of pnumber: 0x7fffe14f8df0
+```
