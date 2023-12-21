@@ -89,7 +89,10 @@ Text can be:
 # Spatial
 
 ### <->
-returns distance between two geom
+* returns distance between two geom
+
+* ALWAYS looks for the CLOSEST parts of each
+object in order to measure distance
 
 ### &&
 * returns true if geams are instersect
