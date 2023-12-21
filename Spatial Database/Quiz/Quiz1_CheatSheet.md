@@ -117,6 +117,9 @@ object in order to measure distance
 ### st_centroid(geom)
 * return center point of the geom
 
-### st_envelope(geom)
+### st_envelope(geom)
 * return bounding boxes of the geom
+
+### st_srid(geom)
+* Returns the spatial reference identifier for the ST_Geometry as defined in spatial_ref_sys table
 
