@@ -164,3 +164,172 @@ pnumber points: 0x7fffe14f8dfc
 value of the ram slot that pointed by pnumber: 10
 address of pnumber: 0x7fffe14f8df0
 ```
+
+## Question 3
+
+Explaining the difference between a pointer and a reference in C++
+
+## Answer 3
+
+### Resources:
+
+* [Pointers vs References in C++](https://www.geeksforgeeks.org/pointers-vs-references-cpp/)
+
+* [C++ Arrays](https://www.w3schools.com/cpp/cpp_arrays.asp)
+
+* [C++ Pointer Arithmetic](https://www.geeksforgeeks.org/cpp-pointer-arithmetic/)
+
+<hr>
+
+### Definitions
+
+<b>Pointers:</b> A pointer is a variable that holds the memory address of another variable.
+
+<b>References:</b> A reference variable is an alias, that is, another name for an already existing variable.
+
+### Differences
+
+1. Declarations
+
+```cpp
+int i = 3; 
+
+// A pointer to variable i or "stores the address of i"
+int *ptr = &i; 
+
+// A reference (or alias) for i.
+int &ref = i; 
+```
+<hr>
+
+2. Reassignment: 
+  * A pointer can be re-assigned.
+
+  ```cpp
+  // Create integers
+  int a = 5;
+  int b = 6;
+
+  // Create an integer pointer
+  int *p;
+
+  // First assignment
+  p = &a;
+
+  // Second assignment
+  p = &b;
+  ```
+
+  *  A reference cannot be re-assigned, and must be assigned at initialization.
+  
+  ```cpp
+  int a = 5;
+  int b = 6;
+  int &p = a;
+  
+  // This will throw an error of "multiple declaration is not allowed"
+  int &p = b; 
+  ```
+
+  <hr>
+
+  3. Memory Address: A pointer has its own memory address and size on the stack, whereas a reference shares the same memory address with the original variable and takes up no space on the stack.
+
+```cpp
+#include <iostream>
+
+int main() {
+  int number = 10;
+  int *ptr = &number;
+  int &ref = number;
+
+  // Address of number
+  printf("Address of number..: %p \n", &number);
+  
+  // Pointer has different address than number
+  printf("Address of pointer..: %p \n", &ptr);
+
+  // Reference has same address with number
+  printf("Address of reference..: %p \n", &ref);
+}
+```
+
+Output:
+```yaml
+Address of number..: 0x7fff45da1b54 
+Address of pointer..: 0x7fff45da1b48 
+Address of reference..: 0x7fff45da1b54 
+```
+
+<hr>
+
+4. Indirection:  You can have a pointer to pointer (known as a double pointer) offering extra levels of indirection, whereas references only offer one level of indirection.
+
+```cpp
+// Two pointer - Valid
+#include <iostream>
+
+int main() {
+  int number = 10;
+  int *ptr = &number;
+  int **ptr2 = &ptr;
+}
+```
+
+```cpp
+// Two references - Invalid
+#include <iostream>
+
+int main() {
+  int number = 10;
+  int &ptr = number;
+  int &&ptr2 = &ptr;
+}
+```
+
+<hr>
+
+5. Arithmetic operations: Various arithmetic operations can be performed on pointers, whereas there is no such thing called Reference Arithmetic (however, you can perform pointer arithmetic on the address of an object pointed to by a reference, as in &obj + 5). 
+
+```cpp
+#include <iostream>
+
+int main() {
+  // Define array
+  int arr[3] = {10,20,30};
+
+  // Pointer points first item of the array
+  int *ptr = &arr[0];
+
+  // First item value and address
+  printf("Value of the ptr..: %d \n", *ptr);
+  printf("Address of the ptr..: %p \n", &ptr);
+
+  // Increment pointer 4 bytes
+  ptr = ptr + 1; 
+
+  // Second item value and address
+  printf("Value of the ptr..: %d \n", *ptr);
+  printf("Address of the ptr..: %p \n", &ptr);
+
+  // Increment pointer 4 bytes
+  ptr = ptr + 1;
+
+  // Thirth item value and address
+  printf("Value of the ptr..: %d \n", *ptr);
+  printf("Address of the ptr..: %p \n", &ptr);
+  
+}
+```
+
+### Summary
+
+Use references: 
+* In function parameters and return types.
+
+Use pointers: 
+* If pointer arithmetic or passing a NULL pointer is needed. For example, for arrays (Note that accessing an array is implemented using pointer arithmetic).
+
+* To implement data structures like a linked list, a tree, etc. and their algorithms. This is so because, in order to point to different cells, we have to use the concept of pointers.
+
+![Alt text](image-2.png)
