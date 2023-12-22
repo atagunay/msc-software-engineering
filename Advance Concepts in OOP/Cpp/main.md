@@ -57,7 +57,7 @@ Value of address that halded by the pointer: 10
 ```
 
 ### Code Example 2
-![Alt text](image.png)
+![Alt text](image-3.png)
 
 ```cpp
 #include <iostream>
