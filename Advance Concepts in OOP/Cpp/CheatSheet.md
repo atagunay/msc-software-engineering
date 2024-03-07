@@ -688,3 +688,7 @@ int main() {
 ## Deadly Diamond Of Death
 
 https://chat.openai.com/share/7d3114d4-8eff-41a8-a2dc-6f917454b1e4
+
+## Generics
+
+https://chat.openai.com/share/967d825c-dae8-4370-a328-667f16ec7e0c
